@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[A Project Manager's note]]></title>
-  <link href="http://bohnen.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: SGT2014 | A Project Manager's note]]></title>
+  <link href="http://bohnen.github.io/blog/categories/sgt2014/atom.xml" rel="self"/>
   <link href="http://bohnen.github.io/"/>
   <updated>2014-01-16T20:29:59+09:00</updated>
   <id>http://bohnen.github.io/</id>
@@ -134,106 +134,6 @@
 <li>プロセスはやはり、世の中にあるものをベースとしつつ、自分達でカスタマイズするのが基本。網羅は大変。何を採用するか、しないかは自分達で決める必要がある。</li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[SGT2014 why do we use scrum]]></title>
-    <link href="http://bohnen.github.io/blog/2014/01/16/why-do-we-use-scrum/"/>
-    <updated>2014-01-16T20:10:03+09:00</updated>
-    <id>http://bohnen.github.io/blog/2014/01/16/why-do-we-use-scrum</id>
-    <content type="html"><![CDATA[<p>DeNAの方の講演のメモ。少し遅れて参加したため、知花さんの講演しか聴けなかった。</p>
-
-<ul>
-<li>知花 里香氏</li>
-<li>貝瀬 岳志氏</li>
-</ul>
-
-
-<p>失敗談をベースに話している</p>
-
-<h2>失敗1: 細かい質問に対応できない</h2>
-
-<ul>
-<li>最適なサイクルは? といった、実務上の細かい質問に対応できない。</li>
-</ul>
-
-
-<p>細かい質問を解決するのがScrum Masterの仕事ではなくて、ガイド役
-安易にSprintを開始してはならない、というのは確かにそうだろう。自分達でやってはいけないことリストを作るとよいかもしれない。</p>
-
-<h2>失敗2: POがPOの仕事ができない</h2>
-
-<p>チームでビジョンが明確になっていない。チームでビジョンを作る必要がある。
-チームビジョンをどう作るか。</p>
-
-<ul>
-<li>GROWモデル &ndash; Goal Reallity(現状) Option Will（将来）</li>
-</ul>
-
-
-<p>GROWという考え方は初耳だったが、現状とゴールとその先、と理解するとしっくりきた。
-最終的なプロジェクトのアウトプットは、さらに上位のレベルの要求と合致していなければならないと思う。
-ただ、オプションやゴールの設定は、チームにまかせることができる。方向性と、どこまでがチームの管轄か、という両方を
-表しているという点が良さそうに思え、試して見たい方法だった。</p>
-
-<p>実際にプロジェクトを運営していても、ロードマップ（マイルストーン）の合意と、その到達点（何ができていればいいのか？）は明確にしなければならない。その先や現状というのは、方向性を確認するために必要だ。</p>
-
-<p>日常的にチームを運営するという観点からは、チームルールの定義も必要だと思った。</p>
-
-<h2>失敗3: Scrumに固執する</h2>
-
-<ul>
-<li>Scrumを押しつけない</li>
-</ul>
-
-
-<p>問題解決を図るのが目的であって、Scrumを行うのが目的ではない。
-ただ、よく分からないときの導きとして、テンプレートとしての「典型的な」手法があってもいいかもしれない。</p>
-
-<h2>Summary</h2>
-
-<ul>
-<li>課題の本質を見失わない</li>
-<li>あるべき論が先行してしまってはダメ</li>
-<li>ビジョン合意なくしてチーム運営を始めない</li>
-<li>スクラム屋にならない</li>
-</ul>
-
-
-<h2>INFO</h2>
-
-<ul>
-<li>Scrum master&rsquo;s night というイベントをやる予定。facebookにページを作ったそう。</li>
-</ul>
-
-
-<h2>Star Map</h2>
-
-<p>プロジェクトに必要なスキルと、それを保有しているかどうかのマトリクス。
-スキルのトランスファー、やりたいかやりたくないかということを可視化する。これも初めて聞いた。
-スキル不足 = プロジェクトリスクでもあり、改善を図るポイントでもあるが、プロジェクトとして
-抜けているスキルを、自発的に埋めたいかどうかというのは確認のポイントとして考えたことはなかった。
-インフラが好きな人もいれば、UIが好きって人もいるしね。</p>
-
-<h2>雑感</h2>
-
-<ul>
-<li>Sprintの適切なサイズはなんだろう?
-
-<ul>
-<li>実際にやってみた感想としては、一週間は短すぎる。日本は祝日が多いので、一週間は短くなることがある
-(1日休みがあると、20%が作業時間から消える)</li>
-<li>2週間だと、1日は10%。よくあるルールとして、遅延が10%以上になると警告とするというルールがあるが、
-2週間に1日休みがあると、丁度遅延ぎりぎりのバッファを含んだ数値となる。</li>
-<li>2週間1サイクルとして、1日はバッファ、休日、レトロスペクティブとすると丁度よさそう。</li>
-</ul>
-</li>
-</ul>
-
-
-<p>目に見える進捗が必要。これは、何でもいい。Information Radiatorとしての道具は、なんでもいいが、
-皆が見えて更新しないと気持ち悪いという状態にしなければならないなと思う。</p>
 ]]></content>
   </entry>
   
@@ -404,101 +304,6 @@ Enterprise Scrumは、Scrumを抽象化して、マネージメント手法と�
 
 
 <p>&ldquo;it is not necessary to change. Because survive is not mandatory&rdquo; &ndash; Edward Demming</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[ソフトウェア職人気質 ch.6]]></title>
-    <link href="http://bohnen.github.io/blog/2014/01/16/software-craftmanship/"/>
-    <updated>2014-01-16T19:31:10+09:00</updated>
-    <id>http://bohnen.github.io/blog/2014/01/16/software-craftmanship</id>
-    <content type="html"><![CDATA[<p>この章では、資格制度がソフトウェア開発に貢献するという仮定がいかに間違っているかを説明している。
-資格制度の問題というより、資格制度を実施するほど堅牢な知識の基盤がない、と筆者は主張する。</p>
-
-<p>知識の成熟は浅く、それでいて適用範囲が広すぎるため、「ソフトウェア開発」とひとくくりにした資格制度は意味がないとする。
-また、そのような資格が、単に知識を知っているという以上の意味を持たないために、現実の業務で品質の向上に寄与していない点を指摘している。</p>
-
-<p>職人気質は、そのようなあやふやな基準によらず、個人の推薦を基盤として、すぐれた開発者を識別する。</p>
-
-<p>では、職人気質がソフトウェアの品質にどのように貢献しているのだろうか？
-「ソフトウェアの品質に貢献している」というクレジットは明確になり、信頼もできるが、しかし、実際どのような貢献なのであろうか。</p>
-
-<h2>Memo</h2>
-
-<ul>
-<li>ソフトウェア工学の資格制度のためには、Body of Knowledgeが必要であるが、<a href="http://www.computer.org/portal/web/swebok">SWEBOK</a> を作成したACMは、資格制度化を見送っている。その理由は:
-
-<ul>
-<li> 堅牢なシステムに必要な特殊な知識を外してしまうと、そのようなシステムの開発に必要な重要な知識が排除されることになる</li>
-<li> ソフトウェア開発の分野は日進月歩であり、まだまだ工学・プラクティスが成熟していない</li>
-</ul>
-</li>
-<li>2014年現在、SWEBOKはv3のDRAFTを掲載しており、二つの認定試験のベースとなっている。状況は変わってきているのだろうか。</li>
-<li>ソフトウェア職人気質は、個人の評判、個人的な推薦に着目する。ハリウッドの人材調達とおなじやり方で、ハリウッド・モデルと呼ぶ</li>
-<li>ハリウッド・モデルで検索すると該当するものはなかったのだが、<a href="http://bytepawn.com/2008/07/14/the-hollywood-model-in-software-engineering/">興味深いpost</a> を見つけた</li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[パーフェクトRuby ch.15]]></title>
-    <link href="http://bohnen.github.io/blog/2014/01/16/perfect-ruby-ch-dot-15/"/>
-    <updated>2014-01-16T19:26:26+09:00</updated>
-    <id>http://bohnen.github.io/blog/2014/01/16/perfect-ruby-ch-dot-15</id>
-    <content type="html"><![CDATA[<p>積ん読になってたパーフェクトRubyを実際にコーディングしながら読み進めてみた。
-15章はコマンドラインのTodoアプリケーションの開発だ。</p>
-
-<p>Rubyは初級レベル。awkの代わりにちょっとしたスクリプトを作成するのに使うかという程度の利用しかやってなかったので、Rubyでのアプリケーションの開発は初めて（仕事ではほとんどJavaだし）。</p>
-
-<h2>ポイント</h2>
-
-<ul>
-<li>bundlerによるgemのスケルトンの作成。gemの構造の理解</li>
-<li>ActiveRecordによるDB接続と、ORMの提供</li>
-<li>OptionParaserによるコマンドライン引数の解析</li>
-</ul>
-
-
-<p>Gemの作り方を学べたのと、OptionParaserでのサブコマンドの作り方を丁寧に書いてあって分かりやすかった。</p>
-
-<h2>Bundler</h2>
-
-<ul>
-<li><a href="http://bundler.io/">本家サイト</a></li>
-<li>bundlerはrubyのアプリケーションでのgemの依存関係を整理してくれる</li>
-<li>gemのスケルトンの生成もやってくれて便利</li>
-</ul>
-
-
-<blockquote><p>$ bundler gem todo -b</p></blockquote>
-
-<ul>
-<li>設定はGemfileに記載。Gemfileから、todo.gemspecを読み込むようだ。</li>
-<li>bundle execコマンドで、ruby や rakeなどのコマンドを Gemfile/todo.gemspecを読み込んだ上で実行してくれる。環境依存の情報はこの二つのファイルに書けばよく、アプリケーションコードを汚さない。</li>
-<li>開発時に必要だけどプロダクションでは不要といった依存関係も書ける。</li>
-</ul>
-
-
-<h2>ActiveRecord</h2>
-
-<ul>
-<li><a href="http://api.rubyonrails.org/files/activerecord/README_rdoc.html">API Document</a></li>
-<li>ActiveRecord::Baseを使ってDB接続の作成、テーブルの作成を実施</li>
-<li>ActiveRecord::Baseを継承したクラスはテーブルに対応したモデルクラスになる。このときクラス名は単数、テーブル名は複数形というネーミングルール</li>
-<li><a href="http://guides.rubyonrails.org/active_record_querying.html#scopes">scope</a> を使って、複雑な条件をまとめた新たな検索メソッドを定義できる。
-16章でview側に検索結果を引き渡すときに役立った。</li>
-</ul>
-
-
-<h2>OptionParser</h2>
-
-<ul>
-<li><a href="http://guides.rubyonrails.org/active_record_querying.html#copes">API Document</a></li>
-<li>サブコマンドの解析はできないので、サブコマンドを解析させるときは、サブコマンド毎にOptionParserのインスタンスを作成する</li>
-<li>ヘルプは opt.banner, opt.separator などのメソッドでカスタマイズできる。opt.on で解析するオプションは自動で出力されるが、サブコマンドのヘルプは自動で出力されないので、自分で組み立てて表示する必要がある。</li>
-</ul>
-
 ]]></content>
   </entry>
   
