@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: PM | A Project Manager's note]]></title>
+  <link href="http://bohnen.github.io/blog/categories/pm/atom.xml" rel="self"/>
+  <link href="http://bohnen.github.io/"/>
+  <updated>2014-01-16T19:32:25+09:00</updated>
+  <id>http://bohnen.github.io/</id>
+  <author>
+    <name><![CDATA[bohnen]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[ソフトウェア職人気質 ch.6]]></title>
+    <link href="http://bohnen.github.io/blog/2014/01/16/software-craftmanship/"/>
+    <updated>2014-01-16T19:31:10+09:00</updated>
+    <id>http://bohnen.github.io/blog/2014/01/16/software-craftmanship</id>
+    <content type="html"><![CDATA[<p>この章では、資格制度がソフトウェア開発に貢献するという仮定がいかに間違っているかを説明している。
+資格制度の問題というより、資格制度を実施するほど堅牢な知識の基盤がない、と筆者は主張する。</p>
+
+<p>知識の成熟は浅く、それでいて適用範囲が広すぎるため、「ソフトウェア開発」とひとくくりにした資格制度は意味がないとする。
+また、そのような資格が、単に知識を知っているという以上の意味を持たないために、現実の業務で品質の向上に寄与していない点を指摘している。</p>
+
+<p>職人気質は、そのようなあやふやな基準によらず、個人の推薦を基盤として、すぐれた開発者を識別する。</p>
+
+<p>では、職人気質がソフトウェアの品質にどのように貢献しているのだろうか？
+「ソフトウェアの品質に貢献している」というクレジットは明確になり、信頼もできるが、しかし、実際どのような貢献なのであろうか。</p>
+
+<h2>Memo</h2>
+
+<ul>
+<li>ソフトウェア工学の資格制度のためには、Body of Knowledgeが必要であるが、<a href="http://www.computer.org/portal/web/swebok">SWEBOK</a> を作成したACMは、資格制度化を見送っている。その理由は:
+
+<ul>
+<li> 堅牢なシステムに必要な特殊な知識を外してしまうと、そのようなシステムの開発に必要な重要な知識が排除されることになる</li>
+<li> ソフトウェア開発の分野は日進月歩であり、まだまだ工学・プラクティスが成熟していない</li>
+</ul>
+</li>
+<li>2014年現在、SWEBOKはv3のDRAFTを掲載しており、二つの認定試験のベースとなっている。状況は変わってきているのだろうか。</li>
+<li>ソフトウェア職人気質は、個人の評判、個人的な推薦に着目する。ハリウッドの人材調達とおなじやり方で、ハリウッド・モデルと呼ぶ</li>
+<li>ハリウッド・モデルで検索すると該当するものはなかったのだが、<a href="http://bytepawn.com/2008/07/14/the-hollywood-model-in-software-engineering/">興味深いpost</a> を見つけた</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

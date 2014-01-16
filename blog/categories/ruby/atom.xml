@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Ruby | A Project Manager's note]]></title>
+  <link href="http://bohnen.github.io/blog/categories/ruby/atom.xml" rel="self"/>
+  <link href="http://bohnen.github.io/"/>
+  <updated>2014-01-16T19:32:25+09:00</updated>
+  <id>http://bohnen.github.io/</id>
+  <author>
+    <name><![CDATA[bohnen]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[パーフェクトRuby ch.15]]></title>
+    <link href="http://bohnen.github.io/blog/2014/01/16/perfect-ruby-ch-dot-15/"/>
+    <updated>2014-01-16T19:26:26+09:00</updated>
+    <id>http://bohnen.github.io/blog/2014/01/16/perfect-ruby-ch-dot-15</id>
+    <content type="html"><![CDATA[<p>積ん読になってたパーフェクトRubyを実際にコーディングしながら読み進めてみた。
+15章はコマンドラインのTodoアプリケーションの開発だ。</p>
+
+<p>Rubyは初級レベル。awkの代わりにちょっとしたスクリプトを作成するのに使うかという程度の利用しかやってなかったので、Rubyでのアプリケーションの開発は初めて（仕事ではほとんどJavaだし）。</p>
+
+<h2>ポイント</h2>
+
+<ul>
+<li>bundlerによるgemのスケルトンの作成。gemの構造の理解</li>
+<li>ActiveRecordによるDB接続と、ORMの提供</li>
+<li>OptionParaserによるコマンドライン引数の解析</li>
+</ul>
+
+
+<p>Gemの作り方を学べたのと、OptionParaserでのサブコマンドの作り方を丁寧に書いてあって分かりやすかった。</p>
+
+<h2>Bundler</h2>
+
+<ul>
+<li><a href="http://bundler.io/">本家サイト</a></li>
+<li>bundlerはrubyのアプリケーションでのgemの依存関係を整理してくれる</li>
+<li>gemのスケルトンの生成もやってくれて便利</li>
+</ul>
+
+
+<blockquote><p>$ bundler gem todo -b</p></blockquote>
+
+<ul>
+<li>設定はGemfileに記載。Gemfileから、todo.gemspecを読み込むようだ。</li>
+<li>bundle execコマンドで、ruby や rakeなどのコマンドを Gemfile/todo.gemspecを読み込んだ上で実行してくれる。環境依存の情報はこの二つのファイルに書けばよく、アプリケーションコードを汚さない。</li>
+<li>開発時に必要だけどプロダクションでは不要といった依存関係も書ける。</li>
+</ul>
+
+
+<h2>ActiveRecord</h2>
+
+<ul>
+<li><a href="http://api.rubyonrails.org/files/activerecord/README_rdoc.html">API Document</a></li>
+<li>ActiveRecord::Baseを使ってDB接続の作成、テーブルの作成を実施</li>
+<li>ActiveRecord::Baseを継承したクラスはテーブルに対応したモデルクラスになる。このときクラス名は単数、テーブル名は複数形というネーミングルール</li>
+<li><a href="http://guides.rubyonrails.org/active_record_querying.html#scopes">scope</a> を使って、複雑な条件をまとめた新たな検索メソッドを定義できる。
+16章でview側に検索結果を引き渡すときに役立った。</li>
+</ul>
+
+
+<h2>OptionParser</h2>
+
+<ul>
+<li><a href="http://guides.rubyonrails.org/active_record_querying.html#copes">API Document</a></li>
+<li>サブコマンドの解析はできないので、サブコマンドを解析させるときは、サブコマンド毎にOptionParserのインスタンスを作成する</li>
+<li>ヘルプは opt.banner, opt.separator などのメソッドでカスタマイズできる。opt.on で解析するオプションは自動で出力されるが、サブコマンドのヘルプは自動で出力されないので、自分で組み立てて表示する必要がある。</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
