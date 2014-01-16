@@ -28,7 +28,9 @@ Bundler
 * bundlerはrubyのアプリケーションでのgemの依存関係を整理してくれる
 * gemのスケルトンの生成もやってくれて便利
 
+```
 > $ bundler gem todo -b 
+```
 
 * 設定はGemfileに記載。Gemfileから、todo.gemspecを読み込むようだ。
 * bundle execコマンドで、ruby や rakeなどのコマンドを Gemfile/todo.gemspecを読み込んだ上で実行してくれる。環境依存の情報はこの二つのファイルに書けばよく、アプリケーションコードを汚さない。
