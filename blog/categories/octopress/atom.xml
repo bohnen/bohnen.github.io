@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Octopress | A Project Manager's note]]></title>
+  <link href="http://bohnen.github.io/blog/categories/octopress/atom.xml" rel="self"/>
+  <link href="http://bohnen.github.io/"/>
+  <updated>2014-01-16T22:43:20+09:00</updated>
+  <id>http://bohnen.github.io/</id>
+  <author>
+    <name><![CDATA[bohnen]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[blog with octopress]]></title>
+    <link href="http://bohnen.github.io/blog/2014/01/16/blog-with-octopress/"/>
+    <updated>2014-01-16T22:01:32+09:00</updated>
+    <id>http://bohnen.github.io/blog/2014/01/16/blog-with-octopress</id>
+    <content type="html"><![CDATA[<p>blogをgithub pagesとoctopressでつけはじめたので、そのメモ。</p>
+
+<!--more-->
+
+
+<h1>インストール</h1>
+
+<p>まず、github pagesの準備。&lt;ユーザー名>.github.io というリポジトリを作成しておく。</p>
+
+<h2>Otcopressインストール</h2>
+
+<p><code>bash
+$ git clone https://github.com/imathis/octopress.git
+$ cd octopress
+$ gem install bundler # 元々入っていたのでやってない
+$ bundle install
+$ bundle exec rake install # デフォルトテーマのインストール
+</code></p>
+
+<h2>github pages対応</h2>
+
+<p><code>bash
+$ bundle exec rake setup_github_pages
+</code></p>
+
+<p>ここで、github pagesのURLを聞かれるので、&lt;ユーザー名>.github.io リポジトリの git: か <a href="https:">https:</a> のURLを入力</p>
+
+<h2>ページ生成</h2>
+
+<p><code>bash
+$ bundle exec rake generate
+$ bundle exec rake preview
+</code></p>
+
+<p>ここで localhost:4000 にアクセスすると、初期ページが見える。</p>
+
+<h1>テーマのインストール</h1>
+
+<p>デフォルトのテーマは暗くてちょっと嫌だったので、<a href="http://opthemes.com/">ここ</a> から、octostrap3というテーマをチョイス。</p>
+
+<p><code>bash
+$ git clone https://github.com/kAworu/octostrap3 .themes/octostrap3
+$ bundle exec rake install['octostrap3']
+$ bundle generate
+</code></p>
+
+<h1>記事を書く</h1>
+
+<p><code>bash
+$ bundle exec rake new_post['title']
+</code></p>
+
+<h1>プレビュー</h1>
+
+<p><code>bash
+$ bundle exec rake generate
+$ bundle exec rake preview
+</code></p>
+
+<p>サーバが立ち上がっているときに記事を編集すると、勝手にgenerateしてくれる。</p>
+
+<h1>デプロイ</h1>
+
+<p><code>bash
+$ bundle exec rake deploy
+</code></p>
+
+<h1>コミット</h1>
+
+<p><code>bash
+$ git add .
+$ git commit -m "hoge"
+$ git push origin source # bundle exec rake push でもいいのかな...?
+</code></p>
+
+<h1>おまけ</h1>
+
+<ul>
+<li>sublime Text2でmarkdownを編集するいいプラグインがないかなと思って、markdowneditingを最初に試したが、
+日本語入力のときに改行が入ることがあって結局使わないことにした。</li>
+<li>現在はmarkdown extendedを使っている。</li>
+</ul>
+
+
+<h1>参考文献</h1>
+
+<ol>
+<li><a href="http://octopress.org/">octopress</a></li>
+<li><a href="http://melborne.github.io/2012/05/13/first-step-of-jekyll/">30分のチュートリアルでJekyllを理解する</a></li>
+<li><a href="http://sublimetext-markdown.github.io/MarkdownEditing/#gfm-spesific-features">markdownediting</a></li>
+<li><a href="https://github.com/jonschlinkert/sublime-markdown-extended">markdown Extended</a></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+</feed>

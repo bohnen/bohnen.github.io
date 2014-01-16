@@ -4,7 +4,7 @@
   <title><![CDATA[A Project Manager's note]]></title>
   <link href="http://bohnen.github.io/atom.xml" rel="self"/>
   <link href="http://bohnen.github.io/"/>
-  <updated>2014-01-16T20:57:00+09:00</updated>
+  <updated>2014-01-16T22:43:20+09:00</updated>
   <id>http://bohnen.github.io/</id>
   <author>
     <name><![CDATA[bohnen]]></name>
@@ -12,6 +12,125 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[blog with octopress]]></title>
+    <link href="http://bohnen.github.io/blog/2014/01/16/blog-with-octopress/"/>
+    <updated>2014-01-16T22:01:32+09:00</updated>
+    <id>http://bohnen.github.io/blog/2014/01/16/blog-with-octopress</id>
+    <content type="html"><![CDATA[<p>blogをgithub pagesとoctopressでつけはじめたので、そのメモ。</p>
+
+<!--more-->
+
+
+<h1>インストール</h1>
+
+<p>まず、github pagesの準備。&lt;ユーザー名>.github.io というリポジトリを作成しておく。</p>
+
+<h2>Otcopressインストール</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git clone https://github.com/imathis/octopress.git
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>octopress
+</span><span class='line'><span class="nv">$ </span>gem install bundler <span class="c"># 元々入っていたのでやってない</span>
+</span><span class='line'><span class="nv">$ </span>bundle install
+</span><span class='line'><span class="nv">$ </span>bundle <span class="nb">exec </span>rake install <span class="c"># デフォルトテーマのインストール</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>github pages対応</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>bundle <span class="nb">exec </span>rake setup_github_pages
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ここで、github pagesのURLを聞かれるので、&lt;ユーザー名>.github.io リポジトリの git: か <a href="https:">https:</a> のURLを入力</p>
+
+<h2>ページ生成</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>bundle <span class="nb">exec </span>rake generate
+</span><span class='line'><span class="nv">$ </span>bundle <span class="nb">exec </span>rake preview
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ここで localhost:4000 にアクセスすると、初期ページが見える。</p>
+
+<h1>テーマのインストール</h1>
+
+<p>デフォルトのテーマは暗くてちょっと嫌だったので、<a href="http://opthemes.com/">ここ</a> から、octostrap3というテーマをチョイス。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git clone https://github.com/kAworu/octostrap3 .themes/octostrap3
+</span><span class='line'><span class="nv">$ </span>bundle <span class="nb">exec </span>rake install<span class="o">[</span><span class="s1">&#39;octostrap3&#39;</span><span class="o">]</span>
+</span><span class='line'><span class="nv">$ </span>bundle generate
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>記事を書く</h1>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>bundle <span class="nb">exec </span>rake new_post<span class="o">[</span><span class="s1">&#39;title&#39;</span><span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>プレビュー</h1>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>bundle <span class="nb">exec </span>rake generate
+</span><span class='line'><span class="nv">$ </span>bundle <span class="nb">exec </span>rake preview
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>サーバが立ち上がっているときに記事を編集すると、勝手にgenerateしてくれる。</p>
+
+<h1>デプロイ</h1>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>bundle <span class="nb">exec </span>rake deploy
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>コミット</h1>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git add .
+</span><span class='line'><span class="nv">$ </span>git commit -m <span class="s2">&quot;hoge&quot;</span>
+</span><span class='line'><span class="nv">$ </span>git push origin <span class="nb">source</span> <span class="c"># bundle exec rake push でもいいのかな...?</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>おまけ</h1>
+
+<ul>
+<li>sublime Text2でmarkdownを編集するいいプラグインがないかなと思って、markdowneditingを最初に試したが、
+日本語入力のときに改行が入ることがあって結局使わないことにした。</li>
+<li>現在はmarkdown extendedを使っている。</li>
+</ul>
+
+
+<h1>参考文献</h1>
+
+<ol>
+<li><a href="http://octopress.org/">octopress</a></li>
+<li><a href="http://melborne.github.io/2012/05/13/first-step-of-jekyll/">30分のチュートリアルでJekyllを理解する</a></li>
+<li><a href="http://sublimetext-markdown.github.io/MarkdownEditing/#gfm-spesific-features">markdownediting</a></li>
+<li><a href="https://github.com/jonschlinkert/sublime-markdown-extended">markdown Extended</a></li>
+</ol>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[STG2014 Scrumで売上があがるのか]]></title>
@@ -490,7 +609,9 @@ Enterprise Scrumは、Scrumを抽象化して、マネージメント手法と�
 </ul>
 
 
-<blockquote><p>$ bundler gem todo -b</p></blockquote>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&gt; $ bundler gem todo -b </span></code></pre></td></tr></table></div></figure>
+
 
 <ul>
 <li>設定はGemfileに記載。Gemfileから、todo.gemspecを読み込むようだ。</li>
