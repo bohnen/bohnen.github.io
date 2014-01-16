@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Book | A Project Manager's note]]></title>
   <link href="http://bohnen.github.io/blog/categories/book/atom.xml" rel="self"/>
   <link href="http://bohnen.github.io/"/>
-  <updated>2014-01-16T20:29:59+09:00</updated>
+  <updated>2014-01-16T20:57:00+09:00</updated>
   <id>http://bohnen.github.io/</id>
   <author>
     <name><![CDATA[bohnen]]></name>
@@ -23,6 +23,11 @@
 
 <p>知識の成熟は浅く、それでいて適用範囲が広すぎるため、「ソフトウェア開発」とひとくくりにした資格制度は意味がないとする。
 また、そのような資格が、単に知識を知っているという以上の意味を持たないために、現実の業務で品質の向上に寄与していない点を指摘している。</p>
+
+<!--more-->
+
+
+<p></p>
 
 <p>職人気質は、そのようなあやふやな基準によらず、個人の推薦を基盤として、すぐれた開発者を識別する。</p>
 
@@ -56,6 +61,9 @@
 15章はコマンドラインのTodoアプリケーションの開発だ。</p>
 
 <p>Rubyは初級レベル。awkの代わりにちょっとしたスクリプトを作成するのに使うかという程度の利用しかやってなかったので、Rubyでのアプリケーションの開発は初めて（仕事ではほとんどJavaだし）。</p>
+
+<!--more-->
+
 
 <h2>ポイント</h2>
 
