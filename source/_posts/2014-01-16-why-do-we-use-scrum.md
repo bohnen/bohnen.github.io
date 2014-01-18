@@ -3,7 +3,7 @@ layout: post
 title: "SGT2014 why do we use scrum"
 date: 2014-01-16 20:10:03 +0900
 comments: true
-categories: [Scrum, STG2014]
+categories: [Scrum, SGT2014]
 ---
 DeNAの方の講演のメモ。少し遅れて参加したため、知花さんの講演しか聴けなかった。
 
