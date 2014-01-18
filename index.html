@@ -27,6 +27,18 @@
 
   <script src="/javascripts/libs/jquery/jquery-2.0.3.min.js"></script>
   
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-47281013-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
 
 </head>
 
@@ -82,6 +94,95 @@
   <div class="page-content col-md-9">
     <div class="blog-index">
       
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-01-18T19:22:00+09:00" pubdate data-updated="true">2014-01-18</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2014/01/18/how-to-use-rsec/">Rsecメモ</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>sqlの簡単な解析を行ったときに<a href="https://github.com/luikore/rsec">Rsec</a> を使ったので、そのメモ。
+Rsecは2年ほど前から更新されていないが、コンパクトで使いやすいし、動かしながら慣れていけるのが良い。</p>
+
+</div>
+  
+  
+    <footer>
+      <a class="btn btn-default" rel="full-article" href="/blog/2014/01/18/how-to-use-rsec/">Read on &rarr;</a>
+    </footer>
+  
+
+
+        </article>
+      
+      
+        <article class="post">
+          
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-01-17T20:48:03+09:00" pubdate data-updated="true">2014-01-17</time>
+        
+      </p>
+    
+    
+      <h1 class="entry-title"><a href="/blog/2014/01/17/parse-create-table/">SQLのパース</a></h1>
+    
+  </header>
+
+
+  <div class="entry-content clearfix"><p>ALTERやらCREATE TABLEやらCREATE INDEXやらがごちゃ混ぜになったDDLファイルから、
+CREATE TABLEだけを引っこ抜き、それぞれの属性の名称と型を調べる必要に迫られた。</p>
+
+<p>SQLの解析はちょっと面倒で、特に、型がそれぞれパターンが異なることから、パーサー使わないといけないと
+思い立ち、そこからRubyのパーサライブラリ探索の旅が始まるのであった。</p>
+
+</div>
+  
+  
+    <footer>
+      <a class="btn btn-default" rel="full-article" href="/blog/2014/01/17/parse-create-table/">Read on &rarr;</a>
+    </footer>
+  
+
+
+        </article>
       
       
         <article class="post">
@@ -378,15 +479,15 @@
   
   <div id="recent_posts" class="list-group">
     
+    <a class="list-group-item " href="/blog/2014/01/18/how-to-use-rsec/">Rsecメモ</a>
+    
+    <a class="list-group-item " href="/blog/2014/01/17/parse-create-table/">SQLのパース</a>
+    
     <a class="list-group-item " href="/blog/2014/01/16/blog-with-octopress/">Blog With Octopress</a>
     
     <a class="list-group-item " href="/blog/2014/01/16/stg2014-scrum-for-s-sales/">STG2014 Scrumで売上があがるのか</a>
     
     <a class="list-group-item " href="/blog/2014/01/16/why-do-we-use-scrum/">SGT2014 Why Do We Use Scrum</a>
-    
-    <a class="list-group-item " href="/blog/2014/01/16/sgt2014-mike-beedle/">SGT2014 Mike Beedle基調講演</a>
-    
-    <a class="list-group-item " href="/blog/2014/01/16/software-craftmanship/">ソフトウェア職人気質 ch.6</a>
     
   </div>
 </section>

@@ -4,7 +4,7 @@
   <title><![CDATA[A Project Manager's note]]></title>
   <link href="http://bohnen.github.io/atom.xml" rel="self"/>
   <link href="http://bohnen.github.io/"/>
-  <updated>2014-01-16T22:43:20+09:00</updated>
+  <updated>2014-01-18T20:39:39+09:00</updated>
   <id>http://bohnen.github.io/</id>
   <author>
     <name><![CDATA[bohnen]]></name>
@@ -12,6 +12,343 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Rsecメモ]]></title>
+    <link href="http://bohnen.github.io/blog/2014/01/18/how-to-use-rsec/"/>
+    <updated>2014-01-18T19:22:00+09:00</updated>
+    <id>http://bohnen.github.io/blog/2014/01/18/how-to-use-rsec</id>
+    <content type="html"><![CDATA[<p>sqlの簡単な解析を行ったときに<a href="https://github.com/luikore/rsec">Rsec</a> を使ったので、そのメモ。
+Rsecは2年ほど前から更新されていないが、コンパクトで使いやすいし、動かしながら慣れていけるのが良い。</p>
+
+<!--more-->
+
+
+<h2>インストール</h2>
+
+<p>Ruby 1.9用とあるが、2.0でも利用できた。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>gem install rsec
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>使い方</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rsec&#39;</span>
+</span><span class='line'><span class="kp">include</span> <span class="ss">Rsec</span><span class="p">:</span><span class="ss">:Helper</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>これで、<a href="http://rsec.heroku.com/ref">http://rsec.heroku.com/ref</a> にあるようなDSLが利用できるようになる。これだけでも簡単な処理には十分。</p>
+
+<h2>パターンマッチ</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">regex_match</span>  <span class="o">=</span> <span class="sr">/\w+/</span><span class="o">.</span><span class="n">r</span>
+</span><span class='line'><span class="n">string_match</span> <span class="o">=</span> <span class="s1">&#39;test&#39;</span><span class="o">.</span><span class="n">r</span>
+</span><span class='line'><span class="n">number_match</span> <span class="o">=</span> <span class="n">prim</span> <span class="ss">:int32</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Regexや文字列に追加される .r メソッドを呼ぶことで、Rsecのパターンを作ることができる。マッチすると、マッチした文字列が返る。
+ブロックを渡すか、mapメソッドを呼ぶことで、マッチしたときのアクションを変更できる。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="s1">&#39;test&#39;</span><span class="o">.</span><span class="n">r</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">s</span><span class="o">|</span> <span class="p">{</span><span class="ss">:matched</span> <span class="o">=&gt;</span> <span class="n">s</span><span class="p">}}</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">parse</span> <span class="s1">&#39;test&#39;</span>
+</span><span class='line'><span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:matched</span> <span class="o">=&gt;</span> <span class="s2">&quot;test&quot;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>文字列のパースは parseもしくは parse!。失敗したときの挙動がことなる。失敗したときにどの解析に失敗したかを分かりやすく
+するために、failメソッドを使う。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="s1">&#39;abc&#39;</span><span class="o">.</span><span class="n">r</span><span class="o">.</span><span class="n">fail</span> <span class="s1">&#39;abc&#39;</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">parse</span> <span class="s1">&#39;ab&#39;</span>
+</span><span class='line'><span class="no">INVALID_TOKEN</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">parse!</span> <span class="s1">&#39;ab&#39;</span>
+</span><span class='line'><span class="k">in</span> <span class="ss">source</span><span class="p">:</span><span class="mi">1</span> <span class="n">at</span> <span class="mi">1</span><span class="p">,</span> <span class="n">expect</span> <span class="n">token</span> <span class="o">[</span> <span class="n">abc</span> <span class="o">]</span>
+</span><span class='line'><span class="n">ab</span>
+</span><span class='line'> <span class="o">^</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>組み合わせ</h2>
+
+<p>上記の基本的なパターンを組み合わせて、より複雑なパターンを構成できる。まずは最も基本的な、連接。
+連接はseqを使う。seqはデリミタなし。seq_は、デフォルトで空白をデリミタとする。skip: でデリミタを指定できる。
+マッチした配列を返す。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="n">seq_</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="ss">skip</span><span class="p">:</span> <span class="s1">&#39;;&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">parse</span> <span class="s1">&#39;a;b;c&#39;</span>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="o">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>2項の繰り返しは、joinを使っても書ける。これは、 a, b, c, &hellip;といった任意個数の連接の解析に使える。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="sr">/[\w\* ]+/</span><span class="o">.</span><span class="n">r</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">parse</span> <span class="s1">&#39;root:*:0:0:System Administrator&#39;</span>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="o">[</span><span class="s2">&quot;root&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="s2">&quot;System Administrator&quot;</span><span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>選択は &ldquo;|&rdquo; を使う。選択は左から順に試されることに注意</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="s1">&#39;aaa&#39;</span><span class="o">.</span><span class="n">r</span> <span class="o">|</span> <span class="s1">&#39;aa&#39;</span><span class="o">.</span><span class="n">r</span> <span class="o">|</span> <span class="s1">&#39;a&#39;</span><span class="o">.</span><span class="n">r</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">parse</span> <span class="s1">&#39;aa&#39;</span>
+</span><span class='line'><span class="o">=&gt;</span> <span class="s1">&#39;aa&#39;</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span><span class="o">.</span><span class="n">r</span> <span class="o">|</span> <span class="s1">&#39;aa&#39;</span><span class="o">.</span><span class="n">r</span> <span class="o">|</span> <span class="s1">&#39;aaa&#39;</span><span class="o">.</span><span class="n">r</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">parse</span> <span class="s1">&#39;aa&#39;</span>
+</span><span class='line'><span class="o">=&gt;</span> <span class="s1">&#39;a&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>繰り返しは .star 、または *(n) を使う</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span><span class="o">.</span><span class="n">r</span><span class="o">.</span><span class="n">star</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">parse</span> <span class="s1">&#39;&#39;</span>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="o">[]</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">parse</span> <span class="s1">&#39;aaa&#39;</span>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="o">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span><span class="s2">&quot;a&quot;</span><span class="p">,</span><span class="s2">&quot;a&quot;</span><span class="o">]</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span><span class="o">.</span><span class="n">r</span> <span class="o">*</span> <span class="mi">5</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">parse</span> <span class="s1">&#39;aaaaa&#39;</span>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="o">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="o">]</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">t2</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:join</span><span class="p">)</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">t2</span><span class="o">.</span><span class="n">parse</span> <span class="s1">&#39;aaaaa&#39;</span>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="s2">&quot;aaaaa&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>選択</h1>
+
+<p>基本的にマッチしたすべての箇所が配列で返るのだが、それをいちいち[n]やブロックで必要なところだけとるのは面倒なので、
+簡略記法がある。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="n">one_of</span><span class="p">(</span><span class="s1">&#39;+-&#39;</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="sr">/\d+/</span><span class="o">.</span><span class="n">r</span> <span class="c1"># one_ofはどれか一文字の選択。 &gt;&gt; は、右辺の結果のみを返す</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">parse</span> <span class="s1">&#39;+1234&#39;</span>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="s2">&quot;1234&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="s1">&#39;(&#39;</span><span class="o">.</span><span class="n">r</span> <span class="o">&gt;&gt;</span> <span class="sr">/\w+/</span><span class="o">.</span><span class="n">r</span> <span class="o">&lt;&lt;</span> <span class="s1">&#39;)&#39;</span><span class="o">.</span><span class="n">r</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">parse</span> <span class="s1">&#39;(  test  )&#39;</span> <span class="c1"># &lt;&lt;は、空白を無視する</span>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="s2">&quot;test&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>joinでは、繰り返しの左側、右側のみを取得する .odd, .even がある。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="sr">/[\w\* ]+/</span><span class="o">.</span><span class="n">r</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">even</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">parse</span> <span class="s1">&#39;root:*:0:0:System Administrator&#39;</span>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="o">[</span><span class="s2">&quot;root&quot;</span><span class="p">,</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="s2">&quot;System Administrator&quot;</span><span class="o">]</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="s1">&#39;:&#39;</span><span class="o">.</span><span class="n">r</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sr">/[\w\* ]+/</span><span class="p">)</span><span class="o">.</span><span class="n">odd</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">parse</span> <span class="s1">&#39;:root:*:0:0:System Administrator:&#39;</span>
+</span><span class='line'> <span class="o">=&gt;</span> <span class="o">[</span><span class="s2">&quot;root&quot;</span><span class="p">,</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="s2">&quot;System Administrator&quot;</span><span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Gist</h2>
+
+<p>基本は上記の通りで、それをベースにcreate table文(db2)をパースして、属性とその型の一覧を出力するサンプル</p>
+
+<div><script src='https://gist.github.com/8488424.js?file=tableparse.rb'></script>
+<noscript><pre><code># coding: utf-8
+require &#39;rsec&#39;
+
+class TableParser
+  include Rsec::Helper
+
+  def initialize
+    generate_parser
+  end
+
+  def parse str
+    begin
+      @query.parse! str
+    rescue =&gt; e
+      p e
+    end
+  end
+
+  def generate_parser
+    token      = /[\w\+]+/.r
+    quote      = &#39;&quot;&#39;.r
+    sep        = /\s*,\s*/.r
+    qword      = quote.maybe &gt;&gt; token &lt;&lt; quote.maybe
+    not_null   = seq_(&#39;NOT&#39;,&#39;NULL&#39;).maybe{|v| true unless v.empty?}
+    tokens     = token.join(/\s*/).fail &#39;tokens&#39;
+    qwords     = qword.join(/\s*/).fail &#39;qwords&#39;
+    options    = seq_(&#39;(&#39;, tokens, &#39;)&#39;).fail &#39;options&#39;
+    
+    params     = seq_(tokens,options.maybe).fail &#39;params&#39;
+    column_def = seq_(qword,type,not_null) &lt;&lt; params.maybe
+    column_defs = &#39;(&#39;.r &gt;&gt; column_def.join(sep).even &lt;&lt; &#39;)&#39;.r
+    table_name = seq(qword, &#39;.&#39;, qword)[2] | qword
+    table_def  = &#39;CREATE&#39;.r &gt;&gt; &#39;TABLE&#39; &gt;&gt; table_name
+    @query = seq_(table_def, column_defs,qwords.maybe, &#39;;&#39;){|t,c|
+      {:table_name =&gt; t, :column_def =&gt; c}
+    }
+  end
+
+  def solo type
+    solo   = seq_(&#39;(&#39;, prim(:int64), &#39;)&#39;).map(&amp;:join)
+    seq_(type, solo).map(&amp;:join)
+  end
+
+  def pair type
+    number = prim :int64
+    pair   = seq_(&#39;(&#39;, number, &quot;,&quot; ,number, &#39;)&#39;).map(&amp;:join)
+    seq_(type,pair).map(&amp;:join)
+  end
+
+  def type
+    type = &#39;SMALLINT&#39;.r | &#39;INTEGER&#39;.r | &#39;INT&#39;.r | &#39;BIGINT&#39;.r |
+            &#39;DATE&#39;.r | &#39;TIME&#39;.r | &#39;TIMESTAMP&#39;.r |
+            &#39;BINARY LARGE OBJECT&#39;.r | 
+            solo(&#39;VARCHAR&#39;) | solo(&#39;CHAR&#39;) | solo(&#39;VARGRAPHIC&#39;) | solo(&#39;BLOB&#39;) |
+            pair(&#39;NUMERIC&#39;) | pair(&#39;DECIMAL&#39;)
+    type.fail &#39;type&#39;
+  end
+
+  def format result, sort = true
+    id_length = 50
+    type_length = 20
+    null_length = 10
+    total_length = id_length + type_length + null_length +2
+
+    puts &quot;[ #{result[:table_name]} ]&quot;.center(total_length)
+    puts &quot;-&quot;*(total_length)
+    puts [&quot;ID&quot;.center(id_length),&quot;TYPE&quot;.center(type_length),&quot;NOT NULL&quot;.center(null_length)].join(&quot;|&quot;)
+    puts &quot;-&quot;*(total_length)
+    result[:column_def].sort!{|x,y| x[0] &lt;=&gt; y[0]} if sort
+    result[:column_def].each do |col|
+      n = col[2] == true ? &quot;YES&quot; : &quot;NO&quot;
+      puts [col[0].ljust(id_length), col[1].ljust(type_length), n.ljust(null_length)].join(&quot;|&quot;)
+    end
+    puts 
+  end
+end
+
+if __FILE__ == $PROGRAM_NAME
+  require &#39;pp&#39;
+
+  if ARGV.count &gt; 0 then
+    match = ARGF.read.scan(/CREATE TABLE.*?;/m)
+    match.sort!
+    match.each do |m|
+      t = TableParser.new
+      t.format(t.parse(m))
+    end
+  else
+    t = TableParser.new
+    p t.parse &#39;CREATE TABLE &quot;SCHEMA&quot;.&quot;TABLE_NAME&quot; ( &quot;ID&quot; INT NOT NULL AUTOGEN, 
+                                                   &quot;NAME&quot; VARCHAR(10) NOT NULL,
+                                                   &quot;UPD_TIME&quot; TIMESTAMP ) IN &quot;TBLSPACE&quot;;&#39;
+  end
+end
+</code></pre></noscript></div>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[SQLのパース]]></title>
+    <link href="http://bohnen.github.io/blog/2014/01/17/parse-create-table/"/>
+    <updated>2014-01-17T20:48:03+09:00</updated>
+    <id>http://bohnen.github.io/blog/2014/01/17/parse-create-table</id>
+    <content type="html"><![CDATA[<p>ALTERやらCREATE TABLEやらCREATE INDEXやらがごちゃ混ぜになったDDLファイルから、
+CREATE TABLEだけを引っこ抜き、それぞれの属性の名称と型を調べる必要に迫られた。</p>
+
+<p>SQLの解析はちょっと面倒で、特に、型がそれぞれパターンが異なることから、パーサー使わないといけないと
+思い立ち、そこからRubyのパーサライブラリ探索の旅が始まるのであった。</p>
+
+<!--more-->
+
+
+<h2>CREATE TABLE文の抜き出し</h2>
+
+<p>なにはともあれCREATE TABLE文だけを抽出しなければいけないが、これは最短マッチを使うことですんなり行く。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">match</span> <span class="o">=</span> <span class="no">ARGF</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="sr">/CREATE TABLE.*?;/m</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>parslet と Rsec</h2>
+
+<p>今回はパーサライブラリとして、使うのが簡単そうな <a href="http://kschiess.github.io/parslet/install.html">parslet</a>を
+使ってみる。</p>
+
+<p>と、思ったんだけど、途中で<a href="https://www.ruby-forum.com/topic/3444183">こんなスレ</a>を見つけてしまい、速いと評判だった
+<a href="https://github.com/luikore/rsec">Rsec</a> を使って書くことにした。</p>
+
+<p>くせがあって慣れるのが大変だったんだけど、慣れたら全然使い易い。Rsecの使い方はメモしておかないと忘れそうだ。
+明日にでも書こう。</p>
+
+<h2>PEG (Parsing Expression Grammer)</h2>
+
+<p>パーサージェネレーターとか触るの10年ぶりくらいだったので、Rsecのようにプログラム中にごりごり書けるのは衝撃だった。
+それ以上に、PEGが何かが分かっていなくて、/[^,]*/ でマッチするようなルールを書いてしまい、「あっれー？おかしいな、
+どんなルールを書いても末尾まで読んでしまってSyntax error吐いちゃう・・・」みたいなことで頭を悩ませていた。</p>
+
+<p>PEGの &ldquo;|&rdquo; は左から実行され、失敗したらバックトラックして右側に進んでいく。</p>
+
+<p>これだけ分かると、後は簡単。汎用的なマッチほど、後ろに書けばいいわけだ。
+例えばCHARは CHARACTERでもいいけど、この場合は &lsquo;CHARACTER&rsquo;.r | &lsquo;CHAR&rsquo;.r と書かないと、先にCHARにマッチしてしまって
+そちらで評価されることになる。（それを防ぐ為の word(&lsquo;CHAR&rsquo;)という書き方もあって、これだと単語として独立していないとマッチしない）</p>
+
+<p>PEGをベースにしたパーサーはずいぶん使いやすい。何より書いてすぐ試行錯誤できるのがいい。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[blog with octopress]]></title>
