@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Octopress | A Project Manager's note]]></title>
   <link href="http://bohnen.github.io/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://bohnen.github.io/"/>
-  <updated>2014-01-18T22:15:43+09:00</updated>
+  <updated>2014-01-18T23:16:41+09:00</updated>
   <id>http://bohnen.github.io/</id>
   <author>
     <name><![CDATA[bohnen]]></name>
@@ -12,6 +12,63 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Octopressの設定]]></title>
+    <link href="http://bohnen.github.io/blog/2014/01/18/octopress-config/"/>
+    <updated>2014-01-18T22:25:32+09:00</updated>
+    <id>http://bohnen.github.io/blog/2014/01/18/octopress-config</id>
+    <content type="html"><![CDATA[<p>Octopressでいくつかblogを書いたので、カスタマイズに着手。カスタマイズ点をメモ。</p>
+
+<!--more-->
+
+
+<h2>サイドバー</h2>
+
+<p>サイドバーの設定は、<em>config.ymlのdefault asidesに説明が書いてある。
+/source/</em>includes/custom/asides/ にサイドバーに表示したいhtmlスニペットを配置して、default asidesに
+custom/asides/foo.html のように書けば良い。</p>
+
+<p>とりあえずデフォルトabout.me が置いてあるので、これを修正してプロフィールが表示できるようにした。</p>
+
+<h2>カテゴリリスト</h2>
+
+<p><a href="https://github.com/tokkonopapa/octopress-tagcloud">https://github.com/tokkonopapa/octopress-tagcloud</a> からタグクラウド pluginをダウンロードして利用。
+ただ、bootstrap3 のテーマでは、Recent postを見る限り divタグとaタグで構成されているので、
+このプラグインではulタグを使っているのでそのままでは見栄えが悪い。Recent postと一致するように、プラグインを書き換えて対応。</p>
+
+<p>```ruby</p>
+
+<h1>html &lt;&lt; &ldquo;<li><a href='http://bohnen.github.io/#{category_dir}/#{category.to_url}/'>#{category}&rdquo;</h1>
+
+<pre><code>    html &lt;&lt; "&lt;a class='list-group-item' href='http://bohnen.github.io/#{category_dir}/#{category.to_url}/'&gt;#{category}"
+    if @opts['counter']
+      html &lt;&lt; " (#{categories[category].count})"
+    end
+</code></pre>
+
+<h1>html &lt;&lt; &ldquo;</a></li>&rdquo;</h1>
+
+<pre><code>    html &lt;&lt; "&lt;/a&gt;"
+</code></pre>
+
+<p>```</p>
+
+<h2>google analytics, disqus</h2>
+
+<p>トラッキングIDとショートネームを _config.yml に書けば使える。</p>
+
+<h2>haml</h2>
+
+<p>hamlプラグインなるものが最初から入っており、.hamlを.htmlにコンバートしてくれるみたいだが、サイドバーを
+hamlで書いて generateしても htmlファイルはできなかった。ぐぐって察するところによると、markdownの代わりに.haml を
+使うと変換してくれるみたいだが、markdownの方が100倍楽だし見やすいのでこのままにする。</p>
+
+<p>サイドバーは手でhaml実行してhtml生成した。プラグインの対象ディレクトリを広げることができれば良さそうだが、
+Jekyllのplugin仕様をしらべないといけない。めんどい。プラグイン自体を作ることはそんなに面倒ではなさそうなので、
+暇があったらやってみよう。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[blog with octopress]]></title>

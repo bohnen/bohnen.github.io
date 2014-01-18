@@ -14,7 +14,7 @@
     </url>
     <url>
         <loc>http://bohnen.github.io/blog/2014/01/16/why-do-we-use-scrum/</loc>
-        <lastmod>2014-01-16T20:56:22+09:00</lastmod>
+        <lastmod>2014-01-18T23:07:49+09:00</lastmod>
     </url>
     <url>
         <loc>http://bohnen.github.io/blog/2014/01/16/stg2014-scrum-for-s-sales/</loc>
@@ -30,7 +30,11 @@
     </url>
     <url>
         <loc>http://bohnen.github.io/blog/2014/01/18/how-to-use-rsec/</loc>
-        <lastmod>2014-01-18T20:31:56+09:00</lastmod>
+        <lastmod>2014-01-18T23:08:03+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://bohnen.github.io/blog/2014/01/18/octopress-config/</loc>
+        <lastmod>2014-01-18T23:16:19+09:00</lastmod>
     </url>
     <url>
         <loc>http://bohnen.github.io/assets/bootstrap/about.html</loc>
@@ -54,7 +58,7 @@
     </url>
     <url>
         <loc>http://bohnen.github.io/assets/bootstrap/</loc>
-        <lastmod>2014-01-18T20:31:56+09:00</lastmod>
+        <lastmod>2014-01-18T23:16:19+09:00</lastmod>
     </url>
     <url>
         <loc>http://bohnen.github.io/assets/bootstrap/javascript.html</loc>
@@ -62,11 +66,11 @@
     </url>
     <url>
         <loc>http://bohnen.github.io/blog/archives/</loc>
-        <lastmod>2014-01-18T20:31:56+09:00</lastmod>
+        <lastmod>2014-01-18T23:16:19+09:00</lastmod>
     </url>
     <url>
         <loc>http://bohnen.github.io/</loc>
-        <lastmod>2014-01-18T20:31:56+09:00</lastmod>
+        <lastmod>2014-01-18T23:16:19+09:00</lastmod>
     </url>
     <url>
         <loc>http://bohnen.github.io/robots.txt</loc>
