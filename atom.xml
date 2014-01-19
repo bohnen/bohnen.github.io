@@ -4,7 +4,7 @@
   <title><![CDATA[A Project Manager's note]]></title>
   <link href="http://bohnen.github.io/atom.xml" rel="self"/>
   <link href="http://bohnen.github.io/"/>
-  <updated>2014-01-18T23:16:41+09:00</updated>
+  <updated>2014-01-20T08:46:37+09:00</updated>
   <id>http://bohnen.github.io/</id>
   <author>
     <name><![CDATA[bohnen]]></name>
@@ -12,6 +12,86 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[開発ドキュメント]]></title>
+    <link href="http://bohnen.github.io/blog/2014/01/19/devdocument/"/>
+    <updated>2014-01-19T00:11:45+09:00</updated>
+    <id>http://bohnen.github.io/blog/2014/01/19/devdocument</id>
+    <content type="html"><![CDATA[<p>開発時に作成するドキュメントについての調査メモ。
+特に開発チームが同一の場所で作業を行っていない場合、コミュニケーションを補う手段としての
+ドキュメントや、チームで決めたことの記録としてのドキュメントが重要になってくる。</p>
+
+<p>そういうドキュメントのガイドラインを作ろうと考えたので、調べたことをメモ。</p>
+
+<!--more-->
+
+
+<h2>背景</h2>
+
+<p>下記のJoel on Softwareにあるような例は実際に多い。（個人的にも痛い目を見た）。
+少なくともシステムを作るのであれば、設計は個人で行うものではないし、設計書を全く書かずに進めるべきではないと思っている</p>
+
+<p>しかし、そもそも開発時のドキュメントとは、何を書くべきなんだろうか。できるだけ負担が少なく、
+それでいて効果的なドキュメントを書きたいが、それはどんなものだろうか。</p>
+
+<h2>Joel on Software</h2>
+
+<ul>
+<li><a href="http://www.joelonsoftware.com/articles/fog0000000036.html">Painless Functional Specifications Part1: Why Bother?</a></li>
+</ul>
+
+
+<p>この記事では、全く仕様を書かないSpeedyと、仕様が決まらないとコーディングをしないMr.Rogerという
+架空の人物の話を通じて、仕様を書く理由として下記を上げている。</p>
+
+<ol>
+<li>自然言語で書く仕様は、短期間で複数の仕様検討（可能な実装バリエーションの検討）が可能である。
+ プログラミング言語では、これが週の単位になってしまう上に、どんなダメな実装になろうとも、その期間は実装に張り付かなければならない。</li>
+<li>コミュニケーションの時間を短縮する。仕様を一度書いてしまえば、説明は一回で済む。</li>
+</ol>
+
+
+<p>仕様がないことの弊害がその後も述べられているが、下記のような状況を何度も見たことがある。
+政治的な理由とあるが、大体のところは「よく分からない領域について意見を言いたくない」「口を出せば仕事が増える」
+「決めたら責任を取らなければいけなくなる」みたいな、消極的な理由によるものだ。</p>
+
+<blockquote><p>In too many programming organizations, every time there&rsquo;s a design debate,
+nobody ever manages to make a decision, usually for political reasons.
+So the programmers only work on uncontroversial stuff.
+As time goes on, all the hard decisions are pushed to the end.</p>
+
+<ul>
+<li>Painless Functional Specificaions Part1: Why Bother?</li>
+</ul>
+
+
+<p>本当に多くの開発組織で、設計で議論になったとき、誰もが決定をしようとしない。通常は政治的な理由によるものだ。
+そのためプログラマは反対意見のない作業ばかりやることになる。そうこうしているうちに、全ての困難な決定は後回しにされる。</p>
+
+<ul>
+<li>Painless Functional Specificaions Part1: Why Bother? より引用</li>
+</ul>
+</blockquote>
+
+<h2>なにを書くべきか</h2>
+
+<p><a href="http://www.joelonsoftware.com/articles/fog0000000035.html">Painless Functional Specifications &ndash; Part 2: What&rsquo;s a Spec?</a> には、下記が例としてあげられている。</p>
+
+<ol>
+<li>A disclaimer (免責事項)</li>
+<li>An author. One author (1人の著者)</li>
+<li>Scenarios (利用シナリオ)</li>
+<li>Nongoals (目指さないもの)</li>
+<li>An Overview (概要)</li>
+<li>Details, details, details (詳細)</li>
+<li>Open Issues (未解決の課題)</li>
+<li>Side notes (読者に応じた付加情報)</li>
+<li>Specs Need To Stay Alive (常に更新)</li>
+</ol>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Octopressの設定]]></title>
