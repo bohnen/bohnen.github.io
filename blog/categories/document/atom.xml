@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Document | A Project Manager's note]]></title>
   <link href="http://bohnen.github.io/blog/categories/document/atom.xml" rel="self"/>
   <link href="http://bohnen.github.io/"/>
-  <updated>2014-01-20T08:46:37+09:00</updated>
+  <updated>2014-01-25T23:05:32+09:00</updated>
   <id>http://bohnen.github.io/</id>
   <author>
     <name><![CDATA[bohnen]]></name>
@@ -14,7 +14,115 @@
 
   
   <entry>
-    <title type="html"><![CDATA[開発ドキュメント]]></title>
+    <title type="html"><![CDATA[開発ドキュメント(技術仕様)]]></title>
+    <link href="http://bohnen.github.io/blog/2014/01/20/devdocument/"/>
+    <updated>2014-01-20T08:31:55+09:00</updated>
+    <id>http://bohnen.github.io/blog/2014/01/20/devdocument</id>
+    <content type="html"><![CDATA[<p>前回に引き続き、開発ドキュメントについてのメモ。</p>
+
+<!--more-->
+
+
+<h2>google WebSocket Design Doc</h2>
+
+<p>blog等でよく設計ドキュメントとして上げられている例で、<a href="https://docs.google.com/document/d/1s1ryja1V8dDotMK2WBGT2wnwchZ_x7Tag2L3OZfn5Po/preview">WebKit WebSocket design doc</a> がある。
+Googleは開発時に必ず設計ドキュメントを作成する必要があるらしい。</p>
+
+<p>これは前述のJoel on Softwareの分類だと、技術仕様に相当するドキュメントと考えられる。
+開発者が主に他の開発者への情報共有として記載するドキュメントのようだ。</p>
+
+<p>個人的な経験から、この手の技術ドキュメントは軽視される傾向にあるが、必ず無いことを後悔することになる。
+後悔するのは主に下記の点になる。</p>
+
+<ul>
+<li><p>明らかな設計の誤りを誰も指摘せずそのまま実装されてしまうこと。設計の誤りは様々な種類があるが、
+機能仕様が実現できないことと、作りがまずいことの2つが大部分を占める。この2つはしかし、的確なレビューによって
+未然に防ぐことができる。</p></li>
+<li><p>他の誰にも理解できない実装（もしくは、理解コストが高くなり理解する気が失せるといってもいい）実装になり、
+実装だけならまだしも、障害対応のメンバーの固定化を招いてしまう。</p></li>
+</ul>
+
+
+<p>こういったドキュメントの必要性は、もちろんメンバーの人数や仕事の形態（同一箇所の開発か、遠隔地か）に
+よっても異なるが、「＊＊さんに聞かないとちょっとわからないなぁ」という会話が頻繁に（個人的には1度でも）聞かれるようだと、必要だと認識した方がよい。</p>
+
+<h2>記載事項</h2>
+
+<ol>
+<li>Objective (目的)</li>
+<li>Background (背景)</li>
+<li>High Level Structure (ハイレベル構造）</li>
+<li>WebCore Classes</li>
+<li>Flows （処理フロー）</li>
+<li>JavaScript binding</li>
+<li>Platform code requirements</li>
+<li>Layout Test Plan</li>
+<li>Security Considerations</li>
+<li>Open Issues (未解決の課題)</li>
+<li>Reference (参考文献)</li>
+<li>Document History (改訂履歴)</li>
+</ol>
+
+
+<p>もちろん、著者のクレジットも記載されている。</p>
+
+<h2>サマリー</h2>
+
+<p>まとめると下記のようになると思う</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th align="left">         </th>
+<th align="center"> 機能仕様            </th>
+<th align="center"> 技術仕様                          </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td align="left">When     </td>
+<td align="center"> 機能検討時     </td>
+<td align="center"> 実装前                         </td>
+</tr>
+<tr>
+<td></td>
+<td align="left">What     </td>
+<td align="center"> 機能について  </td>
+<td align="center"> 実装の概要について       </td>
+</tr>
+<tr>
+<td></td>
+<td align="left">Who      </td>
+<td align="center"> 機能検討者     </td>
+<td align="center"> 実装者                             </td>
+</tr>
+<tr>
+<td></td>
+<td align="left">Whom     </td>
+<td align="center"> 機能提案者     </td>
+<td align="center"> 機能検討者, 他の実装者  </td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>参考文献</h2>
+
+<ol>
+<li><a href="https://docs.google.com/document/d/1s1ryja1V8dDotMK2WBGT2wnwchZ_x7Tag2L3OZfn5Po/preview">WebKit WebSocket design doc</a></li>
+<li><a href="https://docs.google.com/document/d/1ct5-qyUZC9cAKn-iLUgtOczDkERmPzNNwPLDfT9Hgjs/preview#">Game Design Document</a></li>
+<li><a href="http://www.joelonsoftware.com/articles/WhatTimeIsIt.html">Joel on Software</a></li>
+<li><a href="http://www.joelonsoftware.com/articles/fog0000000035.html">Joel on Software</a></li>
+<li><a href="http://www.youtube.com/watch?v=pc-IQkVmOdI">Software Engineer in Google</a></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[開発ドキュメント(機能仕様)]]></title>
     <link href="http://bohnen.github.io/blog/2014/01/19/devdocument/"/>
     <updated>2014-01-19T00:11:45+09:00</updated>
     <id>http://bohnen.github.io/blog/2014/01/19/devdocument</id>
@@ -76,18 +184,45 @@ As time goes on, all the hard decisions are pushed to the end.</p>
 
 <h2>なにを書くべきか</h2>
 
-<p><a href="http://www.joelonsoftware.com/articles/fog0000000035.html">Painless Functional Specifications &ndash; Part 2: What&rsquo;s a Spec?</a> には、下記が例としてあげられている。</p>
+<p>技術仕様ではなく、機能仕様の例として、
+<a href="http://www.joelonsoftware.com/articles/fog0000000035.html">Painless Functional Specifications &ndash; Part 2: What&rsquo;s a Spec?</a> がある。</p>
+
+<p>この記事では、機能仕様はユーザー視点からシステムが何をするものかを記載したものであり、
+内部の作りを記述する技術仕様とは異なるとしている。アルゴリズム等は技術仕様に記載するのだ。
+機能仕様は、日本で良く言われる外部仕様に該当すると考えられる。</p>
+
+<p>以下、上記の記事から、機能仕様に記載する項目として挙げられている事項を引用する。</p>
 
 <ol>
-<li>A disclaimer (免責事項)</li>
-<li>An author. One author (1人の著者)</li>
-<li>Scenarios (利用シナリオ)</li>
-<li>Nongoals (目指さないもの)</li>
-<li>An Overview (概要)</li>
-<li>Details, details, details (詳細)</li>
-<li>Open Issues (未解決の課題)</li>
-<li>Side notes (読者に応じた付加情報)</li>
-<li>Specs Need To Stay Alive (常に更新)</li>
+<li><p>A disclaimer (免責事項)</p>
+
+<p> 仕様の状態について記載する（ドラフト段階等）</p></li>
+<li><p>An author. One author (1人の著者)</p>
+
+<p> 仕様は一人の著者によって書かれる。その一人の著者が、仕様に関する責任とオーナーシップを持つ。
+ なにか問題があれば著者が修正する。</p></li>
+<li><p>Scenarios (利用シナリオ)</p>
+
+<p> ユーザーがこの機能をどのように使うかを詳細に記載する。実際のユーザーではなく想像上のユーザーでも
+ かまわないが、典型的なユーザー像を描くこと。</p></li>
+<li><p>Nongoals (目指さないもの)</p>
+
+<p> ここにはやらないことを記載する。
+ 機能仕様はとかくふくれあがるので、やらないことは明示しておくのが良い。</p></li>
+<li><p>An Overview (概要)</p>
+
+<p> 機能仕様の概略、目次のようなもの。ハイレベルフローチャートなどがあってもかまわない。</p></li>
+<li><p>Details, details, details (詳細)</p>
+
+<p> 詳細を記載。例えばWebベースのシステムなら、画面毎の章があってもよい。
+ 詳細は一番重要な箇所。全ての細かい例外ケースや、決定事項などを記録する。</p></li>
+<li><p>Open Issues (未解決の課題)</p>
+
+<p> ドラフト版の仕様には未解決の課題があっても構わない。</p></li>
+<li><p>Side notes (読者に応じた付加情報)</p></li>
+<li><p>Specs Need To Stay Alive (常に更新)</p>
+
+<p> 仕様は常に更新が必要だ。仕様に対して、コードと乖離しているという批判があるが、これは更新をしないことによる。</p></li>
 </ol>
 
 ]]></content>

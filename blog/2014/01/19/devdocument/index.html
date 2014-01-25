@@ -4,7 +4,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>開発ドキュメント - A Project Manager's note</title>
+  <title>開発ドキュメント(機能仕様) - A Project Manager's note</title>
   <meta name="author" content="bohnen">
 
   
@@ -116,7 +116,7 @@
     
     
     <h1 class="entry-title">
-        開発ドキュメント
+        開発ドキュメント(機能仕様)
         
     </h1>
     
@@ -181,18 +181,45 @@ As time goes on, all the hard decisions are pushed to the end.</p>
 
 <h2>なにを書くべきか</h2>
 
-<p><a href="http://www.joelonsoftware.com/articles/fog0000000035.html">Painless Functional Specifications &ndash; Part 2: What&rsquo;s a Spec?</a> には、下記が例としてあげられている。</p>
+<p>技術仕様ではなく、機能仕様の例として、
+<a href="http://www.joelonsoftware.com/articles/fog0000000035.html">Painless Functional Specifications &ndash; Part 2: What&rsquo;s a Spec?</a> がある。</p>
+
+<p>この記事では、機能仕様はユーザー視点からシステムが何をするものかを記載したものであり、
+内部の作りを記述する技術仕様とは異なるとしている。アルゴリズム等は技術仕様に記載するのだ。
+機能仕様は、日本で良く言われる外部仕様に該当すると考えられる。</p>
+
+<p>以下、上記の記事から、機能仕様に記載する項目として挙げられている事項を引用する。</p>
 
 <ol>
-<li>A disclaimer (免責事項)</li>
-<li>An author. One author (1人の著者)</li>
-<li>Scenarios (利用シナリオ)</li>
-<li>Nongoals (目指さないもの)</li>
-<li>An Overview (概要)</li>
-<li>Details, details, details (詳細)</li>
-<li>Open Issues (未解決の課題)</li>
-<li>Side notes (読者に応じた付加情報)</li>
-<li>Specs Need To Stay Alive (常に更新)</li>
+<li><p>A disclaimer (免責事項)</p>
+
+<p> 仕様の状態について記載する（ドラフト段階等）</p></li>
+<li><p>An author. One author (1人の著者)</p>
+
+<p> 仕様は一人の著者によって書かれる。その一人の著者が、仕様に関する責任とオーナーシップを持つ。
+ なにか問題があれば著者が修正する。</p></li>
+<li><p>Scenarios (利用シナリオ)</p>
+
+<p> ユーザーがこの機能をどのように使うかを詳細に記載する。実際のユーザーではなく想像上のユーザーでも
+ かまわないが、典型的なユーザー像を描くこと。</p></li>
+<li><p>Nongoals (目指さないもの)</p>
+
+<p> ここにはやらないことを記載する。
+ 機能仕様はとかくふくれあがるので、やらないことは明示しておくのが良い。</p></li>
+<li><p>An Overview (概要)</p>
+
+<p> 機能仕様の概略、目次のようなもの。ハイレベルフローチャートなどがあってもかまわない。</p></li>
+<li><p>Details, details, details (詳細)</p>
+
+<p> 詳細を記載。例えばWebベースのシステムなら、画面毎の章があってもよい。
+ 詳細は一番重要な箇所。全ての細かい例外ケースや、決定事項などを記録する。</p></li>
+<li><p>Open Issues (未解決の課題)</p>
+
+<p> ドラフト版の仕様には未解決の課題があっても構わない。</p></li>
+<li><p>Side notes (読者に応じた付加情報)</p></li>
+<li><p>Specs Need To Stay Alive (常に更新)</p>
+
+<p> 仕様は常に更新が必要だ。仕様に対して、コードと乖離しているという批判があるが、これは更新をしないことによる。</p></li>
 </ol>
 
 </div>
@@ -248,6 +275,8 @@ As time goes on, all the hard decisions are pushed to the end.</p>
             <li class="previous"><a href="/blog/2014/01/18/octopress-config/" title="Previous Post: Octopressの設定">&laquo; Octopressの設定</a></li>
             
             
+            <li class="next"><a href="/blog/2014/01/20/devdocument/" title="Next Post: 開発ドキュメント(技術仕様)">開発ドキュメント(技術仕様) &raquo;</a></li>
+            
           </ul>
         
       </footer>
@@ -271,15 +300,15 @@ As time goes on, all the hard decisions are pushed to the end.</p>
   
   <div id="recent_posts" class="list-group">
     
-    <a class="list-group-item active" href="/blog/2014/01/19/devdocument/">開発ドキュメント</a>
+    <a class="list-group-item " href="/blog/2014/01/25/ruby-stat/">ファイルの作成日</a>
+    
+    <a class="list-group-item " href="/blog/2014/01/20/devdocument/">開発ドキュメント(技術仕様)</a>
+    
+    <a class="list-group-item active" href="/blog/2014/01/19/devdocument/">開発ドキュメント(機能仕様)</a>
     
     <a class="list-group-item " href="/blog/2014/01/18/octopress-config/">Octopressの設定</a>
     
     <a class="list-group-item " href="/blog/2014/01/18/how-to-use-rsec/">Rsecメモ</a>
-    
-    <a class="list-group-item " href="/blog/2014/01/17/parse-create-table/">SQLのパース</a>
-    
-    <a class="list-group-item " href="/blog/2014/01/16/blog-with-octopress/">Blog With Octopress</a>
     
   </div>
 </section>
@@ -290,7 +319,7 @@ As time goes on, all the hard decisions are pushed to the end.</p>
     <h3 class='panel-title'>Categories</h3>
   </div>
   <div class='list-group'>
-    <a class='list-group-item' href='/blog/categories/book/'>Book (2)</a><a class='list-group-item' href='/blog/categories/document/'>Document (1)</a><a class='list-group-item' href='/blog/categories/octopress/'>Octopress (2)</a><a class='list-group-item' href='/blog/categories/pm/'>PM (2)</a><a class='list-group-item' href='/blog/categories/rsec/'>Rsec (1)</a><a class='list-group-item' href='/blog/categories/ruby/'>Ruby (3)</a><a class='list-group-item' href='/blog/categories/scrum/'>Scrum (3)</a><a class='list-group-item' href='/blog/categories/sgt2014/'>SGT2014 (3)</a>
+    <a class='list-group-item' href='/blog/categories/book/'>Book (2)</a><a class='list-group-item' href='/blog/categories/document/'>Document (2)</a><a class='list-group-item' href='/blog/categories/octopress/'>Octopress (2)</a><a class='list-group-item' href='/blog/categories/pm/'>PM (3)</a><a class='list-group-item' href='/blog/categories/rsec/'>Rsec (1)</a><a class='list-group-item' href='/blog/categories/ruby/'>Ruby (4)</a><a class='list-group-item' href='/blog/categories/scrum/'>Scrum (3)</a><a class='list-group-item' href='/blog/categories/sgt2014/'>SGT2014 (3)</a>
   </div>
 </section>
 <section>

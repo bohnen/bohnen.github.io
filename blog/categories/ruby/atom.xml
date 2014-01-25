@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ruby | A Project Manager's note]]></title>
   <link href="http://bohnen.github.io/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://bohnen.github.io/"/>
-  <updated>2014-01-20T08:46:37+09:00</updated>
+  <updated>2014-01-25T23:05:32+09:00</updated>
   <id>http://bohnen.github.io/</id>
   <author>
     <name><![CDATA[bohnen]]></name>
@@ -12,6 +12,84 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[ファイルの作成日]]></title>
+    <link href="http://bohnen.github.io/blog/2014/01/25/ruby-stat/"/>
+    <updated>2014-01-25T22:26:40+09:00</updated>
+    <id>http://bohnen.github.io/blog/2014/01/25/ruby-stat</id>
+    <content type="html"><![CDATA[<p>あるディレクトリ以下のファイルの更新日をリストにしてExcel出力する必要があり、
+それに関連していろいろ調べたことのメモ。</p>
+
+<!--more-->
+
+
+<h2>やりたかったこと</h2>
+
+<p>単純に、あるディレクトリ以下のファイルと更新日をcsvにしたかった。最初は、下記のコマンドでいいかなって思ってた。</p>
+
+<p><code>bash
+$ find . -type f | xargs ls -l
+</code></p>
+
+<p>ところが、これだとcsvでない上に、日付の書式がコントロールできない。gnu ls には、 <a href="http://www.gnu.org/software/coreutils/manual/html_node/Formatting-file-timestamps.html">&mdash;time-style</a> という日付書式をコントロールするオプションがあるが、OSX のBSD ls にはない。</p>
+
+<p>homebrew で coreutilsをインストールしたりしたんだけど、結局考えるのが面倒になりRubyでスクリプトを作ることにした。</p>
+
+<h2>atime, ctime, mtime</h2>
+
+<p>Rubyでは File.atime(path), File.ctime(path), File.mtime(path) で、ファイルの更新日を取得できる。
+今回は更新日なので、mtimeでいいと思うんだけど、他のatime/ctimeとは何か?</p>
+
+<p><a href="http://x68000.q-e-d.net/~68user/unix/pickup?%A5%BF%A5%A4%A5%E0%A5%B9%A5%BF%A5%F3%A5%D7">こちらの解説</a> に詳しく書いてあるが、ctimeは作成日ではない。Unixでは、作成日は記録されないこともあるようだ。(OSXはbirth timeとして記録している)
+これらの時間は、stat コマンドで確認できる。coreutilsに含まれるstatの方が出力も親切だ。</p>
+
+<p>全てのUnixでbirth timeがサポートされていないためか、Rubyのメソッドでbirth timeを取得するものはない。
+<a href="https://github.com/mwisnicki/ruby-file-birthtime">File.birthtime Gem</a> を見つけたが、OSX対応はしてないみたい。
+まぁ、必要になったら考えよう。</p>
+
+<h2>日付の変換</h2>
+
+<p>ついでなので、コマンドライン引数として日付を与えて、それより以後に更新されたかどうかを出力するようにした。
+日付形式はExcelで読めるように、yyyy/mm/ddにしたい。</p>
+
+<p>```ruby
+require &lsquo;date&rsquo;</p>
+
+<h1>引数の読み込み</h1>
+
+<p>DateTime.strptime(param, &ldquo;%Y/%m/%d&rdquo;).to_time</p>
+
+<h1>出力</h1>
+
+<p>mdate = File.mstat(path)
+puts mdate.strftime(&ldquo;%Y/%m/%d&rdquo;)
+```</p>
+
+<p>File.mstatはTime型を返すので、入力した日付を to_time する必要があった（そうしないと比較ができない）。</p>
+
+<h2>文字コードの変換</h2>
+
+<p>OSX のファイル名はUTF8なので、そのままcsvを作成するとExcelで読めない。文字コード変換するか。。。</p>
+
+<p><code>bash
+$ iconv -c -t Shift_JIS list.csv &gt; list_sjis.csv
+</code></p>
+
+<p>ところが、これ、日本語ファイル名でブやプといった濁点がついていると、濁点が削れてしまう。ナンデ？
+しらべたところ、<a href="http://d.hatena.ne.jp/miau/20110805/1312555736">Macのファイル名のエンコーディングは UTF-8-MAC</a> だと
+いうことが分かった。初めて知ったよ。</p>
+
+<p><code>bash
+$ iconv -c -f UTF-8-MAC -t Shift_JIS list.csv &gt; list_sjis.csv
+</code></p>
+
+<p>これでOK。でも、何故かいくつかの日本語ファイルが化けて困る。（なんか、常に削れるわけではなくて、たまに削れるから困る）
+結局これは手作業で修正した。次のプロジェクトでは日本語ファイル名禁止にしよう。。。</p>
+
+<p>なんか簡単なことをやるつもりが、意外と時間がかかってしまい悔しい。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Rsecメモ]]></title>
