@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>ソフトウェア職人気質 ch.6 - A Project Manager's note</title>
+  <meta name="author" content="bohnen">
+
+  
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://bohnen.github.io/blog/2014/01/16/software-craftmanship">
+  <link href="/favicon.png" type="image/png" rel="icon">
+  <link href="/atom.xml" rel="alternate" title="A Project Manager's note" type="application/atom+xml">
+
+  <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="/assets/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+
+  <script src="/javascripts/libs/jquery/jquery-2.0.3.min.js"></script>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-47281013-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+  <body   >
+    <div id="wrap">
+      <header role="banner">
+        <nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">A Project Manager's note</a>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="/">Blog</a>
+                </li>
+                <li >
+                    <a href="/blog/archives">Archives</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="subscribe-rss" href="/atom.xml" title="subscribe via RSS">
+                        <span class="visible-xs">RSS</span>
+                        <img class="hidden-xs" src="/images/rss.png" alt="RSS">
+                    </a>
+                </li>
+                
+            </ul>
+            
+                <form class="search navbar-form navbar-right" action="http://google.com/search" method="GET">
+                    <input type="hidden" name="q" value="site:bohnen.github.io">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="q" placeholder="Search">
+                    </div>
+                </form>
+            
+        </div>
+    </div>
+</nav>
+
+
+      </header>
+      <div id="main" class="container">
+        <div id="content">
+          <div class="row">
+  <div class="page-content col-md-9">
+    <article class="hentry" role="article">
+      
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-01-16T19:31:10+09:00" pubdate data-updated="true">2014-01-16</time>
+        
+      </p>
+    
+    
+    <h1 class="entry-title">
+        ソフトウェア職人気質 ch.6
+        
+    </h1>
+    
+  </header>
+
+
+<div class="entry-content clearfix"><p>この章では、資格制度がソフトウェア開発に貢献するという仮定がいかに間違っているかを説明している。
+資格制度の問題というより、資格制度を実施するほど堅牢な知識の基盤がない、と筆者は主張する。</p>
+
+<p>知識の成熟は浅く、それでいて適用範囲が広すぎるため、「ソフトウェア開発」とひとくくりにした資格制度は意味がないとする。
+また、そのような資格が、単に知識を知っているという以上の意味を持たないために、現実の業務で品質の向上に寄与していない点を指摘している。</p>
+
+<!--more-->
+
+
+<p></p>
+
+<p>職人気質は、そのようなあやふやな基準によらず、個人の推薦を基盤として、すぐれた開発者を識別する。</p>
+
+<p>では、職人気質がソフトウェアの品質にどのように貢献しているのだろうか？
+「ソフトウェアの品質に貢献している」というクレジットは明確になり、信頼もできるが、しかし、実際どのような貢献なのであろうか。</p>
+
+<h2>Memo</h2>
+
+<ul>
+<li>ソフトウェア工学の資格制度のためには、Body of Knowledgeが必要であるが、<a href="http://www.computer.org/portal/web/swebok">SWEBOK</a> を作成したACMは、資格制度化を見送っている。その理由は:
+
+<ul>
+<li> 堅牢なシステムに必要な特殊な知識を外してしまうと、そのようなシステムの開発に必要な重要な知識が排除されることになる</li>
+<li> ソフトウェア開発の分野は日進月歩であり、まだまだ工学・プラクティスが成熟していない</li>
+</ul>
+</li>
+<li>2014年現在、SWEBOKはv3のDRAFTを掲載しており、二つの認定試験のベースとなっている。状況は変わってきているのだろうか。</li>
+<li>ソフトウェア職人気質は、個人の評判、個人的な推薦に着目する。ハリウッドの人材調達とおなじやり方で、ハリウッド・モデルと呼ぶ</li>
+<li>ハリウッド・モデルで検索すると該当するものはなかったのだが、<a href="http://bytepawn.com/2008/07/14/the-hollywood-model-in-software-engineering/">興味深いpost</a> を見つけた</li>
+</ul>
+
+</div>
+
+
+      <footer>
+        <p class="meta text-muted">
+          
+  
+
+<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">bohnen</span></span>
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-01-16T19:31:10+09:00" pubdate data-updated="true">2014-01-16</time>
+          
+
+<span class="glyphicon glyphicon-tags"></span>&nbsp;
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/book/'>Book</a>, <a class='category' href='/blog/categories/pm/'>PM</a>
+  
+</span>
+
+
+        </p>
+        
+          <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://bohnen.github.io/blog/2014/01/16/software-craftmanship/" data-via="bohnen" data-counturl="http://bohnen.github.io/blog/2014/01/16/software-craftmanship/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+        
+        
+          <ul class="meta text-muted pager">
+            
+            <li class="previous"><a href="/blog/2014/01/16/perfect-ruby-ch-dot-15/" title="Previous Post: パーフェクトRuby ch.15">&laquo; パーフェクトRuby ch.15</a></li>
+            
+            
+            <li class="next"><a href="/blog/2014/01/16/sgt2014-mike-beedle/" title="Next Post: SGT2014 Mike Beedle基調講演">SGT2014 Mike Beedle基調講演 &raquo;</a></li>
+            
+          </ul>
+        
+      </footer>
+    </article>
+    
+      <section>
+        <h1>Comments</h1>
+        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+      </section>
+    
+  </div>
+
+  
+  <aside class="sidebar col-md-3">
+    
+      <section class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Recent Posts</h3>
+  </div>
+  
+  <div id="recent_posts" class="list-group">
+    
+    <a class="list-group-item " href="/blog/2014/01/19/devdocument/">開発ドキュメント</a>
+    
+    <a class="list-group-item " href="/blog/2014/01/18/octopress-config/">Octopressの設定</a>
+    
+    <a class="list-group-item " href="/blog/2014/01/18/how-to-use-rsec/">Rsecメモ</a>
+    
+    <a class="list-group-item " href="/blog/2014/01/17/parse-create-table/">SQLのパース</a>
+    
+    <a class="list-group-item " href="/blog/2014/01/16/blog-with-octopress/">Blog With Octopress</a>
+    
+  </div>
+</section>
+
+
+<section class='panel panel-default'>
+  <div class='panel-heading'>
+    <h3 class='panel-title'>Categories</h3>
+  </div>
+  <div class='list-group'>
+    <a class='list-group-item' href='/blog/categories/book/'>Book (2)</a><a class='list-group-item' href='/blog/categories/document/'>Document (1)</a><a class='list-group-item' href='/blog/categories/octopress/'>Octopress (2)</a><a class='list-group-item' href='/blog/categories/pm/'>PM (2)</a><a class='list-group-item' href='/blog/categories/rsec/'>Rsec (1)</a><a class='list-group-item' href='/blog/categories/ruby/'>Ruby (3)</a><a class='list-group-item' href='/blog/categories/scrum/'>Scrum (3)</a><a class='list-group-item' href='/blog/categories/sgt2014/'>SGT2014 (3)</a>
+  </div>
+</section>
+<section>
+  <h1>About Me</h1>
+  <hr>
+  bohnen (<a href="http://twitter.com/bohnen">@bohnen</a>)
+  <p>プロジェクトマネージャー。最近プログラミング再開しました。</p>
+</section>
+
+    
+  </aside>
+  
+</div>
+
+        </div>
+      </div>
+    </div>
+    <footer role="contentinfo"><div class="container">
+    <p class="text-muted credits">
+  Copyright &copy; 2014 - bohnen<br>
+  <small>
+      <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>,
+      <span class="credit">customized with <a href="https://github.com/kAworu/octostrap3">octostrap3</a></span>.
+  </small>
+</p>
+
+</div>
+</footer>
+    <script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/modernizr-2.0.js"></script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'bohnen';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://bohnen.github.io/blog/2014/01/16/software-craftmanship/';
+        var disqus_url = 'http://bohnen.github.io/blog/2014/01/16/software-craftmanship/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+  </body>
+</html>

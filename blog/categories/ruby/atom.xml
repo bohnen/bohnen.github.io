@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Ruby | A Project Manager's note]]></title>
+  <link href="http://bohnen.github.io/blog/categories/ruby/atom.xml" rel="self"/>
+  <link href="http://bohnen.github.io/"/>
+  <updated>2014-01-20T08:46:37+09:00</updated>
+  <id>http://bohnen.github.io/</id>
+  <author>
+    <name><![CDATA[bohnen]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Rsecメモ]]></title>
+    <link href="http://bohnen.github.io/blog/2014/01/18/how-to-use-rsec/"/>
+    <updated>2014-01-18T19:22:00+09:00</updated>
+    <id>http://bohnen.github.io/blog/2014/01/18/how-to-use-rsec</id>
+    <content type="html"><![CDATA[<p>sqlの簡単な解析を行ったときに<a href="https://github.com/luikore/rsec">Rsec</a> を使ったので、そのメモ。
+Rsecは2年ほど前から更新されていないが、コンパクトで使いやすいし、動かしながら慣れていけるのが良い。</p>
+
+<!--more-->
+
+
+<h2>インストール</h2>
+
+<p>Ruby 1.9用とあるが、2.0でも利用できた。</p>
+
+<p><code>bash
+$ gem install rsec
+</code></p>
+
+<h2>使い方</h2>
+
+<p><code>ruby
+require 'rsec'
+include Rsec::Helper
+</code></p>
+
+<p>これで、<a href="http://rsec.heroku.com/ref">http://rsec.heroku.com/ref</a> にあるようなDSLが利用できるようになる。これだけでも簡単な処理には十分。</p>
+
+<h2>パターンマッチ</h2>
+
+<p><code>ruby
+regex_match  = /\w+/.r
+string_match = 'test'.r
+number_match = prim :int32
+</code></p>
+
+<p>Regexや文字列に追加される .r メソッドを呼ぶことで、Rsecのパターンを作ることができる。マッチすると、マッチした文字列が返る。
+ブロックを渡すか、mapメソッドを呼ぶことで、マッチしたときのアクションを変更できる。</p>
+
+<p>```ruby</p>
+
+<blockquote><p>t = &lsquo;test&rsquo;.r.map{|s| {:matched => s}}
+t.parse &lsquo;test&rsquo;
+=> {:matched => &ldquo;test&rdquo;}
+```</p></blockquote>
+
+<p>文字列のパースは parseもしくは parse!。失敗したときの挙動がことなる。失敗したときにどの解析に失敗したかを分かりやすく
+するために、failメソッドを使う。</p>
+
+<p>```ruby</p>
+
+<blockquote><p>t = &lsquo;abc&rsquo;.r.fail &lsquo;abc&rsquo;
+t.parse &lsquo;ab&rsquo;
+INVALID_TOKEN
+t.parse! &lsquo;ab&rsquo;
+in source:1 at 1, expect token [ abc ]
+ab
+ ^
+```</p></blockquote>
+
+<h2>組み合わせ</h2>
+
+<p>上記の基本的なパターンを組み合わせて、より複雑なパターンを構成できる。まずは最も基本的な、連接。
+連接はseqを使う。seqはデリミタなし。seq_は、デフォルトで空白をデリミタとする。skip: でデリミタを指定できる。
+マッチした配列を返す。</p>
+
+<p>```ruby</p>
+
+<blockquote><p>t = seq_(&lsquo;a&rsquo;,&lsquo;b&rsquo;,&lsquo;c&rsquo;, skip: &lsquo;;&rsquo;)
+t.parse &lsquo;a;b;c&rsquo;
+ => [&ldquo;a&rdquo;, &ldquo;b&rdquo;, &ldquo;c&rdquo;]
+```</p></blockquote>
+
+<p>2項の繰り返しは、joinを使っても書ける。これは、 a, b, c, &hellip;といった任意個数の連接の解析に使える。</p>
+
+<p>```ruby</p>
+
+<blockquote><p>t = /[\w* ]+/.r.join(&lsquo;:&rsquo;)
+t.parse &lsquo;root:<em>:0:0:System Administrator&rsquo;
+ => [&ldquo;root&rdquo;, &ldquo;:&rdquo;, &ldquo;</em>&rdquo;, &ldquo;:&rdquo;, &ldquo;0&rdquo;, &ldquo;:&rdquo;, &ldquo;0&rdquo;, &ldquo;:&rdquo;, &ldquo;System Administrator&rdquo;]
+```</p></blockquote>
+
+<p>選択は &ldquo;|&rdquo; を使う。選択は左から順に試されることに注意</p>
+
+<p>```ruby</p>
+
+<blockquote><p>t = &lsquo;aaa&rsquo;.r | &lsquo;aa&rsquo;.r | &lsquo;a&rsquo;.r
+t.parse &lsquo;aa&rsquo;
+=> &lsquo;aa&rsquo;
+t = &lsquo;a&rsquo;.r | &lsquo;aa&rsquo;.r | &lsquo;aaa&rsquo;.r
+t.parse &lsquo;aa&rsquo;
+=> &lsquo;a&rsquo;
+```</p></blockquote>
+
+<p>繰り返しは .star 、または *(n) を使う</p>
+
+<p>```ruby</p>
+
+<blockquote><p>t = &lsquo;a&rsquo;.r.star
+t.parse &lsquo;&rsquo;
+ => []
+t.parse &lsquo;aaa&rsquo;
+ => [&ldquo;a&rdquo;,&ldquo;a&rdquo;,&ldquo;a&rdquo;]
+t = &lsquo;a&rsquo;.r * 5
+t.parse &lsquo;aaaaa&rsquo;
+ => [&ldquo;a&rdquo;, &ldquo;a&rdquo;, &ldquo;a&rdquo;, &ldquo;a&rdquo;, &ldquo;a&rdquo;]
+t2 = t.map(&amp;:join)
+t2.parse &lsquo;aaaaa&rsquo;
+ => &ldquo;aaaaa&rdquo;
+```</p></blockquote>
+
+<h1>選択</h1>
+
+<p>基本的にマッチしたすべての箇所が配列で返るのだが、それをいちいち[n]やブロックで必要なところだけとるのは面倒なので、
+簡略記法がある。</p>
+
+<p>```ruby</p>
+
+<blockquote><p>t = one_of(&lsquo;+&ndash;&rsquo;) >> /\d+/.r # one_ofはどれか一文字の選択。 >> は、右辺の結果のみを返す
+t.parse &lsquo;+1234&rsquo;
+ => &ldquo;1234&rdquo;</p>
+
+<p>t = &lsquo;(&rsquo;.r >> /\w+/.r &lt;&lt; &lsquo;)&rsquo;.r
+t.parse &lsquo;(  test  )&rsquo; # &lt;&lt;は、空白を無視する
+ => &ldquo;test&rdquo;
+```</p></blockquote>
+
+<p>joinでは、繰り返しの左側、右側のみを取得する .odd, .even がある。</p>
+
+<p>```ruby</p>
+
+<blockquote><p>t = /[\w* ]+/.r.join(&lsquo;:&rsquo;).even
+t.parse &lsquo;root:<em>:0:0:System Administrator&rsquo;
+ => [&ldquo;root&rdquo;, &ldquo;</em>&rdquo;, &ldquo;0&rdquo;, &ldquo;0&rdquo;, &ldquo;System Administrator&rdquo;]
+t = &lsquo;:&rsquo;.r.join(/[\w* ]+/).odd
+t.parse &lsquo;:root:<em>:0:0:System Administrator:&rsquo;
+ => [&ldquo;root&rdquo;, &ldquo;</em>&rdquo;, &ldquo;0&rdquo;, &ldquo;0&rdquo;, &ldquo;System Administrator&rdquo;]
+```</p></blockquote>
+
+<h2>Gist</h2>
+
+<p>基本は上記の通りで、それをベースにcreate table文(db2)をパースして、属性とその型の一覧を出力するサンプル</p>
+
+<p><div><script src='https://gist.github.com/8488424.js?file=tableparse.rb'></script>
+<noscript><pre><code># coding: utf-8
+require &#39;rsec&#39;
+
+class TableParser
+  include Rsec::Helper
+
+  def initialize
+    generate_parser
+  end
+
+  def parse str
+    begin
+      @query.parse! str
+    rescue =&gt; e
+      p e
+    end
+  end
+
+  def generate_parser
+    token      = /[\w\+]+/.r
+    quote      = &#39;&quot;&#39;.r
+    sep        = /\s*,\s*/.r
+    qword      = quote.maybe &gt;&gt; token &lt;&lt; quote.maybe
+    not_null   = seq_(&#39;NOT&#39;,&#39;NULL&#39;).maybe{|v| true unless v.empty?}
+    tokens     = token.join(/\s*/).fail &#39;tokens&#39;
+    qwords     = qword.join(/\s*/).fail &#39;qwords&#39;
+    options    = seq_(&#39;(&#39;, tokens, &#39;)&#39;).fail &#39;options&#39;
+    
+    params     = seq_(tokens,options.maybe).fail &#39;params&#39;
+    column_def = seq_(qword,type,not_null) &lt;&lt; params.maybe
+    column_defs = &#39;(&#39;.r &gt;&gt; column_def.join(sep).even &lt;&lt; &#39;)&#39;.r
+    table_name = seq(qword, &#39;.&#39;, qword)[2] | qword
+    table_def  = &#39;CREATE&#39;.r &gt;&gt; &#39;TABLE&#39; &gt;&gt; table_name
+    @query = seq_(table_def, column_defs,qwords.maybe, &#39;;&#39;){|t,c|
+      {:table_name =&gt; t, :column_def =&gt; c}
+    }
+  end
+
+  def solo type
+    solo   = seq_(&#39;(&#39;, prim(:int64), &#39;)&#39;).map(&amp;:join)
+    seq_(type, solo).map(&amp;:join)
+  end
+
+  def pair type
+    number = prim :int64
+    pair   = seq_(&#39;(&#39;, number, &quot;,&quot; ,number, &#39;)&#39;).map(&amp;:join)
+    seq_(type,pair).map(&amp;:join)
+  end
+
+  def type
+    type = &#39;SMALLINT&#39;.r | &#39;INTEGER&#39;.r | &#39;INT&#39;.r | &#39;BIGINT&#39;.r |
+            &#39;DATE&#39;.r | &#39;TIME&#39;.r | &#39;TIMESTAMP&#39;.r |
+            &#39;BINARY LARGE OBJECT&#39;.r | 
+            solo(&#39;VARCHAR&#39;) | solo(&#39;CHAR&#39;) | solo(&#39;VARGRAPHIC&#39;) | solo(&#39;BLOB&#39;) |
+            pair(&#39;NUMERIC&#39;) | pair(&#39;DECIMAL&#39;)
+    type.fail &#39;type&#39;
+  end
+
+  def format result, sort = true
+    id_length = 50
+    type_length = 20
+    null_length = 10
+    total_length = id_length + type_length + null_length +2
+
+    puts &quot;[ #{result[:table_name]} ]&quot;.center(total_length)
+    puts &quot;-&quot;*(total_length)
+    puts [&quot;ID&quot;.center(id_length),&quot;TYPE&quot;.center(type_length),&quot;NOT NULL&quot;.center(null_length)].join(&quot;|&quot;)
+    puts &quot;-&quot;*(total_length)
+    result[:column_def].sort!{|x,y| x[0] &lt;=&gt; y[0]} if sort
+    result[:column_def].each do |col|
+      n = col[2] == true ? &quot;YES&quot; : &quot;NO&quot;
+      puts [col[0].ljust(id_length), col[1].ljust(type_length), n.ljust(null_length)].join(&quot;|&quot;)
+    end
+    puts 
+  end
+end
+
+if __FILE__ == $PROGRAM_NAME
+  require &#39;pp&#39;
+
+  if ARGV.count &gt; 0 then
+    match = ARGF.read.scan(/CREATE TABLE.*?;/m)
+    match.sort!
+    match.each do |m|
+      t = TableParser.new
+      t.format(t.parse(m))
+    end
+  else
+    t = TableParser.new
+    p t.parse &#39;CREATE TABLE &quot;SCHEMA&quot;.&quot;TABLE_NAME&quot; ( &quot;ID&quot; INT NOT NULL AUTOGEN, 
+                                                   &quot;NAME&quot; VARCHAR(10) NOT NULL,
+                                                   &quot;UPD_TIME&quot; TIMESTAMP ) IN &quot;TBLSPACE&quot;;&#39;
+  end
+end
+</code></pre></noscript></div>
+</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[SQLのパース]]></title>
+    <link href="http://bohnen.github.io/blog/2014/01/17/parse-create-table/"/>
+    <updated>2014-01-17T20:48:03+09:00</updated>
+    <id>http://bohnen.github.io/blog/2014/01/17/parse-create-table</id>
+    <content type="html"><![CDATA[<p>ALTERやらCREATE TABLEやらCREATE INDEXやらがごちゃ混ぜになったDDLファイルから、
+CREATE TABLEだけを引っこ抜き、それぞれの属性の名称と型を調べる必要に迫られた。</p>
+
+<p>SQLの解析はちょっと面倒で、特に、型がそれぞれパターンが異なることから、パーサー使わないといけないと
+思い立ち、そこからRubyのパーサライブラリ探索の旅が始まるのであった。</p>
+
+<!--more-->
+
+
+<h2>CREATE TABLE文の抜き出し</h2>
+
+<p>なにはともあれCREATE TABLE文だけを抽出しなければいけないが、これは最短マッチを使うことですんなり行く。</p>
+
+<p><code>ruby
+match = ARGF.read.scan(/CREATE TABLE.*?;/m)
+</code></p>
+
+<h2>parslet と Rsec</h2>
+
+<p>今回はパーサライブラリとして、使うのが簡単そうな <a href="http://kschiess.github.io/parslet/install.html">parslet</a>を
+使ってみる。</p>
+
+<p>と、思ったんだけど、途中で<a href="https://www.ruby-forum.com/topic/3444183">こんなスレ</a>を見つけてしまい、速いと評判だった
+<a href="https://github.com/luikore/rsec">Rsec</a> を使って書くことにした。</p>
+
+<p>くせがあって慣れるのが大変だったんだけど、慣れたら全然使い易い。Rsecの使い方はメモしておかないと忘れそうだ。
+明日にでも書こう。</p>
+
+<h2>PEG (Parsing Expression Grammer)</h2>
+
+<p>パーサージェネレーターとか触るの10年ぶりくらいだったので、Rsecのようにプログラム中にごりごり書けるのは衝撃だった。
+それ以上に、PEGが何かが分かっていなくて、/[^,]*/ でマッチするようなルールを書いてしまい、「あっれー？おかしいな、
+どんなルールを書いても末尾まで読んでしまってSyntax error吐いちゃう・・・」みたいなことで頭を悩ませていた。</p>
+
+<p>PEGの &ldquo;|&rdquo; は左から実行され、失敗したらバックトラックして右側に進んでいく。</p>
+
+<p>これだけ分かると、後は簡単。汎用的なマッチほど、後ろに書けばいいわけだ。
+例えばCHARは CHARACTERでもいいけど、この場合は &lsquo;CHARACTER&rsquo;.r | &lsquo;CHAR&rsquo;.r と書かないと、先にCHARにマッチしてしまって
+そちらで評価されることになる。（それを防ぐ為の word(&lsquo;CHAR&rsquo;)という書き方もあって、これだと単語として独立していないとマッチしない）</p>
+
+<p>PEGをベースにしたパーサーはずいぶん使いやすい。何より書いてすぐ試行錯誤できるのがいい。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[パーフェクトRuby ch.15]]></title>
+    <link href="http://bohnen.github.io/blog/2014/01/16/perfect-ruby-ch-dot-15/"/>
+    <updated>2014-01-16T19:26:26+09:00</updated>
+    <id>http://bohnen.github.io/blog/2014/01/16/perfect-ruby-ch-dot-15</id>
+    <content type="html"><![CDATA[<p>積ん読になってたパーフェクトRubyを実際にコーディングしながら読み進めてみた。
+15章はコマンドラインのTodoアプリケーションの開発だ。</p>
+
+<p>Rubyは初級レベル。awkの代わりにちょっとしたスクリプトを作成するのに使うかという程度の利用しかやってなかったので、Rubyでのアプリケーションの開発は初めて（仕事ではほとんどJavaだし）。</p>
+
+<!--more-->
+
+
+<h2>ポイント</h2>
+
+<ul>
+<li>bundlerによるgemのスケルトンの作成。gemの構造の理解</li>
+<li>ActiveRecordによるDB接続と、ORMの提供</li>
+<li>OptionParaserによるコマンドライン引数の解析</li>
+</ul>
+
+
+<p>Gemの作り方を学べたのと、OptionParaserでのサブコマンドの作り方を丁寧に書いてあって分かりやすかった。</p>
+
+<h2>Bundler</h2>
+
+<ul>
+<li><a href="http://bundler.io/">本家サイト</a></li>
+<li>bundlerはrubyのアプリケーションでのgemの依存関係を整理してくれる</li>
+<li>gemのスケルトンの生成もやってくれて便利</li>
+</ul>
+
+
+<p>```</p>
+
+<blockquote><p>$ bundler gem todo -b
+```</p></blockquote>
+
+<ul>
+<li>設定はGemfileに記載。Gemfileから、todo.gemspecを読み込むようだ。</li>
+<li>bundle execコマンドで、ruby や rakeなどのコマンドを Gemfile/todo.gemspecを読み込んだ上で実行してくれる。環境依存の情報はこの二つのファイルに書けばよく、アプリケーションコードを汚さない。</li>
+<li>開発時に必要だけどプロダクションでは不要といった依存関係も書ける。</li>
+</ul>
+
+
+<h2>ActiveRecord</h2>
+
+<ul>
+<li><a href="http://api.rubyonrails.org/files/activerecord/README_rdoc.html">API Document</a></li>
+<li>ActiveRecord::Baseを使ってDB接続の作成、テーブルの作成を実施</li>
+<li>ActiveRecord::Baseを継承したクラスはテーブルに対応したモデルクラスになる。このときクラス名は単数、テーブル名は複数形というネーミングルール</li>
+<li><a href="http://guides.rubyonrails.org/active_record_querying.html#scopes">scope</a> を使って、複雑な条件をまとめた新たな検索メソッドを定義できる。
+16章でview側に検索結果を引き渡すときに役立った。</li>
+</ul>
+
+
+<h2>OptionParser</h2>
+
+<ul>
+<li><a href="http://guides.rubyonrails.org/active_record_querying.html#copes">API Document</a></li>
+<li>サブコマンドの解析はできないので、サブコマンドを解析させるときは、サブコマンド毎にOptionParserのインスタンスを作成する</li>
+<li>ヘルプは opt.banner, opt.separator などのメソッドでカスタマイズできる。opt.on で解析するオプションは自動で出力されるが、サブコマンドのヘルプは自動で出力されないので、自分で組み立てて表示する必要がある。</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
