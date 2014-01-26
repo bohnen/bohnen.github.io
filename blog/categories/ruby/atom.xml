@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ruby | A Project Manager's note]]></title>
   <link href="http://bohnen.github.io/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://bohnen.github.io/"/>
-  <updated>2014-01-25T23:05:32+09:00</updated>
+  <updated>2014-01-26T16:52:48+09:00</updated>
   <id>http://bohnen.github.io/</id>
   <author>
     <name><![CDATA[bohnen]]></name>
@@ -12,6 +12,78 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[git diffによるファイル差分の取得]]></title>
+    <link href="http://bohnen.github.io/blog/2014/01/26/git-diff/"/>
+    <updated>2014-01-26T16:34:45+09:00</updated>
+    <id>http://bohnen.github.io/blog/2014/01/26/git-diff</id>
+    <content type="html"><![CDATA[<p>Gitリポジトリのあるタグ間のファイル差分の一覧を作成する必要があり、スクリプトを書いたのでそのメモ</p>
+
+<!--more-->
+
+
+<h2>git diff のオプション</h2>
+
+<p>Gitリポジトリのタグ間の差分を確認するには、git diffコマンドを使う。今回は差分のあったファイルの一覧を作成したかったので、
+&mdash;stat, &mdash;numstat, &mdash;name-status を使った</p>
+
+<p><code>bash
+$ git diff [--status] [--numstat] [--name-status] from-tag, to-tag
+</code></p>
+
+<ul>
+<li>&mdash;stat</li>
+</ul>
+
+
+<p>リポジトリの差分をグラフィカルに表示する。変更量を追加を+, 削除を- としてグラフィカルに表示。
+ぱっと確認する分には良いが、処理には向かないので今回は使わない。</p>
+
+<ul>
+<li>&mdash;numstat</li>
+</ul>
+
+
+<p>&mdash;statとほぼ一緒だが、追加行数、削除行数、ファイルパスの順にタブ区切りで表示する。</p>
+
+<ul>
+<li>&mdash;name-status</li>
+</ul>
+
+
+<p>変更の種類（A &ndash; 追加 / M &ndash; 変更 / D &ndash; 削除）と、ファイルパスをタブ区切りで表示する</p>
+
+<h2>rubyでのコマンド実行方法</h2>
+
+<p>上記のコマンドでそれなりの一覧はできるのだが、Excel形式にしたりするので加工のためRubyスクリプトを書いた。
+Ruby内から外部のコマンドを実行する方法は、いくつかある。<a href="http://tech.natemurray.com/2007/03/ruby-shell-commands.html">参考:  6 Ways to Run Shell Commands in Ruby</a></p>
+
+<p>今回はgitコマンドを実行し、それを加工するrubyスクリプトを書くので、下記のようにした</p>
+
+<p>```ruby
+IO.popen(&ldquo;git diff &mdash;numstat #{@tag1} #{@tag2}&rdquo;){|io|</p>
+
+<pre><code>while l = io.gets do
+    nAdd, nDel, path = l.split(/\t/)
+    # 加工
+end
+</code></pre>
+
+<p>}
+```</p>
+
+<p>また、CSVファイルをExcelに読み込ませるとき、Shift_JISコードじゃないとちゃんと読まない(Mac版Officeでもそう)ので、
+出力はShift_JISにする必要があった。これは、書き出し先ファイルをオープンするときに文字コードを指定することで可能。</p>
+
+<p>```ruby
+output = open(path, &ldquo;w:Shift_JIS&rdquo;)</p>
+
+<h1>その後の処理</h1>
+
+<p>```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[ファイルの作成日]]></title>

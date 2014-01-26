@@ -4,7 +4,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>SQLのパース - A Project Manager's note</title>
+  <title>git diffによるファイル差分の取得 - A Project Manager's note</title>
   <meta name="author" content="bohnen">
 
   
@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://bohnen.github.io/blog/2014/01/17/parse-create-table">
+  <link rel="canonical" href="http://bohnen.github.io/blog/2014/01/26/git-diff">
   <link href="/favicon.png" type="image/png" rel="icon">
   <link href="/atom.xml" rel="alternate" title="A Project Manager's note" type="application/atom+xml">
 
@@ -110,61 +110,89 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-01-17T20:48:03+09:00" pubdate data-updated="true">2014-01-17</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-01-26T16:34:45+09:00" pubdate data-updated="true">2014-01-26</time>
         
       </p>
     
     
     <h1 class="entry-title">
-        SQLのパース
+        Git Diffによるファイル差分の取得
         
     </h1>
     
   </header>
 
 
-<div class="entry-content clearfix"><p>ALTERやらCREATE TABLEやらCREATE INDEXやらがごちゃ混ぜになったDDLファイルから、
-CREATE TABLEだけを引っこ抜き、それぞれの属性の名称と型を調べる必要に迫られた。</p>
-
-<p>SQLの解析はちょっと面倒で、特に、型がそれぞれパターンが異なることから、パーサー使わないといけないと
-思い立ち、そこからRubyのパーサライブラリ探索の旅が始まるのであった。</p>
+<div class="entry-content clearfix"><p>Gitリポジトリのあるタグ間のファイル差分の一覧を作成する必要があり、スクリプトを書いたのでそのメモ</p>
 
 <!--more-->
 
 
-<h2>CREATE TABLE文の抜き出し</h2>
+<h2>git diff のオプション</h2>
 
-<p>なにはともあれCREATE TABLE文だけを抽出しなければいけないが、これは最短マッチを使うことですんなり行く。</p>
+<p>Gitリポジトリのタグ間の差分を確認するには、git diffコマンドを使う。今回は差分のあったファイルの一覧を作成したかったので、
+&mdash;stat, &mdash;numstat, &mdash;name-status を使った</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">match</span> <span class="o">=</span> <span class="no">ARGF</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="sr">/CREATE TABLE.*?;/m</span><span class="p">)</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git diff <span class="o">[</span>--status<span class="o">]</span> <span class="o">[</span>--numstat<span class="o">]</span> <span class="o">[</span>--name-status<span class="o">]</span> from-tag, to-tag
 </span></code></pre></td></tr></table></div></figure>
 
 
-<h2>parslet と Rsec</h2>
+<ul>
+<li>&mdash;stat</li>
+</ul>
 
-<p>今回はパーサライブラリとして、使うのが簡単そうな <a href="http://kschiess.github.io/parslet/install.html">parslet</a>を
-使ってみる。</p>
 
-<p>と、思ったんだけど、途中で<a href="https://www.ruby-forum.com/topic/3444183">こんなスレ</a>を見つけてしまい、速いと評判だった
-<a href="https://github.com/luikore/rsec">Rsec</a> を使って書くことにした。</p>
+<p>リポジトリの差分をグラフィカルに表示する。変更量を追加を+, 削除を- としてグラフィカルに表示。
+ぱっと確認する分には良いが、処理には向かないので今回は使わない。</p>
 
-<p>くせがあって慣れるのが大変だったんだけど、慣れたら全然使い易い。Rsecの使い方はメモしておかないと忘れそうだ。
-明日にでも書こう。</p>
+<ul>
+<li>&mdash;numstat</li>
+</ul>
 
-<h2>PEG (Parsing Expression Grammer)</h2>
 
-<p>パーサージェネレーターとか触るの10年ぶりくらいだったので、Rsecのようにプログラム中にごりごり書けるのは衝撃だった。
-それ以上に、PEGが何かが分かっていなくて、/[^,]*/ でマッチするようなルールを書いてしまい、「あっれー？おかしいな、
-どんなルールを書いても末尾まで読んでしまってSyntax error吐いちゃう・・・」みたいなことで頭を悩ませていた。</p>
+<p>&mdash;statとほぼ一緒だが、追加行数、削除行数、ファイルパスの順にタブ区切りで表示する。</p>
 
-<p>PEGの &ldquo;|&rdquo; は左から実行され、失敗したらバックトラックして右側に進んでいく。</p>
+<ul>
+<li>&mdash;name-status</li>
+</ul>
 
-<p>これだけ分かると、後は簡単。汎用的なマッチほど、後ろに書けばいいわけだ。
-例えばCHARは CHARACTERでもいいけど、この場合は &lsquo;CHARACTER&rsquo;.r | &lsquo;CHAR&rsquo;.r と書かないと、先にCHARにマッチしてしまって
-そちらで評価されることになる。（それを防ぐ為の word(&lsquo;CHAR&rsquo;)という書き方もあって、これだと単語として独立していないとマッチしない）</p>
 
-<p>PEGをベースにしたパーサーはずいぶん使いやすい。何より書いてすぐ試行錯誤できるのがいい。</p>
+<p>変更の種類（A &ndash; 追加 / M &ndash; 変更 / D &ndash; 削除）と、ファイルパスをタブ区切りで表示する</p>
+
+<h2>rubyでのコマンド実行方法</h2>
+
+<p>上記のコマンドでそれなりの一覧はできるのだが、Excel形式にしたりするので加工のためRubyスクリプトを書いた。
+Ruby内から外部のコマンドを実行する方法は、いくつかある。<a href="http://tech.natemurray.com/2007/03/ruby-shell-commands.html">参考:  6 Ways to Run Shell Commands in Ruby</a></p>
+
+<p>今回はgitコマンドを実行し、それを加工するrubyスクリプトを書くので、下記のようにした</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">IO</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s2">&quot;git diff --numstat </span><span class="si">#{</span><span class="vi">@tag1</span><span class="si">}</span><span class="s2"> </span><span class="si">#{</span><span class="vi">@tag2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">){</span><span class="o">|</span><span class="n">io</span><span class="o">|</span>
+</span><span class='line'>  <span class="k">while</span> <span class="n">l</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">gets</span> <span class="k">do</span>
+</span><span class='line'>      <span class="n">nAdd</span><span class="p">,</span> <span class="n">nDel</span><span class="p">,</span> <span class="n">path</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sr">/\t/</span><span class="p">)</span>
+</span><span class='line'>      <span class="c1"># 加工</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>また、CSVファイルをExcelに読み込ませるとき、Shift_JISコードじゃないとちゃんと読まない(Mac版Officeでもそう)ので、
+出力はShift_JISにする必要があった。これは、書き出し先ファイルをオープンするときに文字コードを指定することで可能。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">output</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;w:Shift_JIS&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="c1"># その後の処理</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
 </div>
 
 
@@ -188,13 +216,13 @@ CREATE TABLEだけを引っこ抜き、それぞれの属性の名称と型を�
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-01-17T20:48:03+09:00" pubdate data-updated="true">2014-01-17</time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-01-26T16:34:45+09:00" pubdate data-updated="true">2014-01-26</time>
           
 
 <span class="glyphicon glyphicon-tags"></span>&nbsp;
 <span class="categories">
   
-    <a class='category' href='/blog/categories/ruby/'>Ruby</a>
+    <a class='category' href='/blog/categories/git/'>Git</a>, <a class='category' href='/blog/categories/ruby/'>Ruby</a>
   
 </span>
 
@@ -203,7 +231,7 @@ CREATE TABLEだけを引っこ抜き、それぞれの属性の名称と型を�
         
           <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://bohnen.github.io/blog/2014/01/17/parse-create-table/" data-via="bohnen" data-counturl="http://bohnen.github.io/blog/2014/01/17/parse-create-table/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://bohnen.github.io/blog/2014/01/26/git-diff/" data-via="bohnen" data-counturl="http://bohnen.github.io/blog/2014/01/26/git-diff/" >Tweet</a>
   
   
   
@@ -215,10 +243,8 @@ CREATE TABLEだけを引っこ抜き、それぞれの属性の名称と型を�
         
           <ul class="meta text-muted pager">
             
-            <li class="previous"><a href="/blog/2014/01/16/blog-with-octopress/" title="Previous Post: blog with octopress">&laquo; blog with octopress</a></li>
+            <li class="previous"><a href="/blog/2014/01/25/ruby-stat/" title="Previous Post: ファイルの作成日">&laquo; ファイルの作成日</a></li>
             
-            
-            <li class="next"><a href="/blog/2014/01/18/how-to-use-rsec/" title="Next Post: Rsecメモ">Rsecメモ &raquo;</a></li>
             
           </ul>
         
@@ -243,7 +269,7 @@ CREATE TABLEだけを引っこ抜き、それぞれの属性の名称と型を�
   
   <div id="recent_posts" class="list-group">
     
-    <a class="list-group-item " href="/blog/2014/01/26/git-diff/">Git Diffによるファイル差分の取得</a>
+    <a class="list-group-item active" href="/blog/2014/01/26/git-diff/">Git Diffによるファイル差分の取得</a>
     
     <a class="list-group-item " href="/blog/2014/01/25/ruby-stat/">ファイルの作成日</a>
     
@@ -300,8 +326,8 @@ CREATE TABLEだけを引っこ抜き、それぞれの属性の名称と型を�
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://bohnen.github.io/blog/2014/01/17/parse-create-table/';
-        var disqus_url = 'http://bohnen.github.io/blog/2014/01/17/parse-create-table/';
+        var disqus_identifier = 'http://bohnen.github.io/blog/2014/01/26/git-diff/';
+        var disqus_url = 'http://bohnen.github.io/blog/2014/01/26/git-diff/';
         var disqus_script = 'embed.js';
       
     (function () {
