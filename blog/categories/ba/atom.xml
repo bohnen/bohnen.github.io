@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: BA | A Project Manager's note]]></title>
+  <link href="http://bohnen.github.io/blog/categories/ba/atom.xml" rel="self"/>
+  <link href="http://bohnen.github.io/"/>
+  <updated>2014-01-29T13:46:14+09:00</updated>
+  <id>http://bohnen.github.io/</id>
+  <author>
+    <name><![CDATA[bohnen]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[本当はBAでも使えるDFD]]></title>
+    <link href="http://bohnen.github.io/blog/2014/01/28/babok-dfd/"/>
+    <updated>2014-01-28T19:01:30+09:00</updated>
+    <id>http://bohnen.github.io/blog/2014/01/28/babok-dfd</id>
+    <content type="html"><![CDATA[<p>IIBA日本支部、BABOK-WG主催のイベントのメモ。
+DFDについての発表という珍しいテーマのイベントだった。</p>
+
+<!--more-->
+
+
+<h3>発表者</h3>
+
+<ul>
+<li>齋藤宏海 氏 / 元IIBA理事（創設メンバー）
+  現在は 日立ソリューションズ 技術開発本部 超上流プロセスエンジニアリングセンタ とのこと。</li>
+</ul>
+
+
+<h3>DFDの概略</h3>
+
+<p>See <a href="http://en.wikipedia.org/wiki/Data_flow_diagram">Wikipedia</a>図もwikipediaからの引用</p>
+
+<p><img src="http://upload.wikimedia.org/wikipedia/commons/c/c8/DataFlowDiagram_Example.png" alt="DFDの例" /></p>
+
+<h3>DFDは何を表す図なのか</h3>
+
+<p>海外の定義では状態遷移。これは齋藤氏も違和感があるとおっしゃっていたが、私も同感。
+ただ、状態遷移図にもアクションを状態とともに書く方法もあることから、システム全体のアクション（=機能）を
+記載する図ということなら、状態遷移とみても良いかもしれない。</p>
+
+<p>齋藤氏はDFDはシステムの境界を明確にすることが重要な役割だと考えているとのことだった。</p>
+
+<h3>データフロー図のメリット</h3>
+
+<ol>
+<li>全体が見渡せる</li>
+<li>設計の見通しが良くなる
+  データをどのように加工してどこに渡すかを把握できる。</li>
+<li>全体の整合性が確保できる</li>
+</ol>
+
+
+<h3>DFDの背景にある基礎概念</h3>
+
+<ul>
+<li>プロセス = Information + Function</li>
+</ul>
+
+
+<p>昔、プログラム = アルゴリズム + データ構造といっていたが、それを抽象化したものが上記だろう。</p>
+
+<h3>分析の（悪い）例</h3>
+
+<p>あるスーパーの販売プロセスを分析したところ、次のようになった。</p>
+
+<ul>
+<li>生鮮品販売</li>
+<li>日配品販売</li>
+<li>加工食品販売</li>
+<li>日用雑貨品販売</li>
+<li>衣料品販売</li>
+<li>文具類販売</li>
+</ul>
+
+
+<p>これはプロセスの分類であって、分析ではない。（プロセスが見えない）。</p>
+
+<p>ビジネスユーザーから業務をヒアリングすると、どうしても実際の業務（職場や、配置といった物理的な状況）に
+沿った説明になり、それに合わせてシステムを構築しても良くはならない。システム化に必要な抽象化が、
+プロフェッショナルなBAの役割。</p>
+
+<p>上記の例ももちろんいろいろな分析の仕方があるが、プロセスを列挙するように心がけるべき。</p>
+
+<h3>機能構成図 (DMM)</h3>
+
+<p>DMMってなんだ、と思ったら、Diamond Mandala Matrixの略。3x3のマトリクスを階層的に構成して、機能を分解していくもの。
+なんでDiamondなのかちょっと由来は見つからなかったが、金剛界曼荼羅(Diamond Realm Mandara)が元かな？</p>
+
+<p><a href="http://www.ogis-ri.co.jp/rad/webmaga/rwm20110705.html">こちら</a> に使い方の例をみることができる。</p>
+
+<h3>記載上のTips</h3>
+
+<p>このあたり、メモが不正確。考えながらメモをとっていた</p>
+
+<ul>
+<li>システム境界内のユーザーは、データストアとして考える</li>
+<li>データの格納や蓄積ではなく、イベントの滞留を示すものと考える</li>
+<li>コンピューターのマスタファイルは、データストアとして記述しない方が良い。
+マスタをデータストアとして記述すると、ほぼ全てのプロセスと関連することになってしまう。</li>
+</ul>
+
+
+<p>考えていたのは、確かにマスタファイルは、外部エンティティとしてモデル化しても差し支えないものと考えることもできる。
+（管理業務などでは、マスタファイルの更新が発生するが、これは業務フローの中では例外的な処理に該当するし、
+作業できる人も限られることが多いため）実際の業務でいくつか障害になるので、書いてみて考えるのが良さそうだ。</p>
+
+<h3>フリーディスカッション</h3>
+
+<p>ビジネスサイドとソリューション開発サイドのコミュニケーションを効率的に行うためには、
+業務プロセスや業務要件はどのようにモデル化し、文書化するのが良いか。</p>
+
+<p>ドキュメントの例として下記が提示されて、このドキュメントが良いのか、他にどんな選択肢があるのかといった
+ことを議論した。</p>
+
+<ul>
+<li>ユースケース図</li>
+<li>業務機能階層図 (DMM)</li>
+<li>データフロー図 (DFD)</li>
+<li>業務流れ図(WFA)</li>
+<li>ユースケースシナリオ</li>
+<li>業務ルール一覧表</li>
+<li>概念データモデル(ER図)</li>
+</ul>
+
+
+<p>私のいたテーブルでは、次のような意見が出た</p>
+
+<ul>
+<li>そもそもユーザーにこれらの図は分かるのか？ 分からないなら書いても意味がないのでは</li>
+<li>ユーザー観点で困るのは、ベンダーによって上記の図でもバリエーションがあること。後から統一するのはかなりのコストがかかる。
+  私は、システムの動きと比較して検証が容易なドキュメントは価値があるが、それ以外は価値がない（一時的なドキュメント）
+  なのでは、という意見を述べた。ユースケースはそういう意味では、微妙な図である。</li>
+<li>ビジネスユーザーにとって意味があるのは機能と業務の流れだが、それと開発側が必要とする Input, Output, Processの間に
+  断絶がある。Input / Outputは目に見えるので合意しやすいが、Processは目に見えないので表現にバリエーションが出てしまう。</li>
+<li>ユースケースを補足する資料として、画面遷移図がある</li>
+</ul>
+
+
+<p>ユースケースはいらないんじゃないかという意見をいったところ、</p>
+
+<ul>
+<li>海外では機能分析の成果としてユースケースはほぼ必須</li>
+<li>ユースケースのメリットは、正常パス、例外パス、異常パスの記述が必須なところ。日本ではこの点が理解されていないのでは</li>
+</ul>
+
+
+<p>という意見が出た。なるほど。</p>
+
+<p>個人的には分かりにくいProcessの部分をクリアにするための分析がロバストネス分析だと思っているが、
+これは主にUIをベースとしたプロセス図であり、データの流れを書くことに主体が置かれていない。</p>
+
+<h3>疑問点</h3>
+
+<ul>
+<li>そもそもBAがデータ分析を行うべき？できる？</li>
+<li>DFDの正しさは誰が検証すべき? 顧客か、それとも成果物の整合性で見るべき？</li>
+</ul>
+
+
+<h3>refs</h3>
+
+<ul>
+<li>IIBAのTIPS集がある</li>
+<li><a href="http://www.slideshare.net/koihayashi/babok-wg-20140129-30552962">BABOK-WGについて</a></li>
+<li><a href="http://en.wikipedia.org/wiki/System_context_diagram">Context Diagram</a></li>
+<li><a href="http://www.youtube.com/watch?v=zoXLU86ohmw">http://www.youtube.com/watch?v=zoXLU86ohmw</a></li>
+<li><a href="http://www.slideshare.net/Cazoomi/data-flow-diagrams-for-dummies">http://www.slideshare.net/Cazoomi/data-flow-diagrams-for-dummies</a></li>
+<li><a href="http://www.meti.go.jp/policy/it_policy/itasociate/it.associate.htm">EA策定ガイドライン</a></li>
+<li><a href="http://www.ipa.go.jp/sec/softwareengineering/tool/ep/ep1.html">超上流から攻めるITの事例集</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

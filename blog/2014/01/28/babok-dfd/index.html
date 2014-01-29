@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>本当はBAでも使えるDFD - A Project Manager's note</title>
+  <meta name="author" content="bohnen">
+
+  
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://bohnen.github.io/blog/2014/01/28/babok-dfd">
+  <link href="/favicon.png" type="image/png" rel="icon">
+  <link href="/atom.xml" rel="alternate" title="A Project Manager's note" type="application/atom+xml">
+
+  <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="/assets/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+
+  <script src="/javascripts/libs/jquery/jquery-2.0.3.min.js"></script>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-47281013-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+  <body   >
+    <div id="wrap">
+      <header role="banner">
+        <nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">A Project Manager's note</a>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="/">Blog</a>
+                </li>
+                <li >
+                    <a href="/blog/archives">Archives</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="subscribe-rss" href="/atom.xml" title="subscribe via RSS">
+                        <span class="visible-xs">RSS</span>
+                        <img class="hidden-xs" src="/images/rss.png" alt="RSS">
+                    </a>
+                </li>
+                
+            </ul>
+            
+                <form class="search navbar-form navbar-right" action="http://google.com/search" method="GET">
+                    <input type="hidden" name="q" value="site:bohnen.github.io">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="q" placeholder="Search">
+                    </div>
+                </form>
+            
+        </div>
+    </div>
+</nav>
+
+
+      </header>
+      <div id="main" class="container">
+        <div id="content">
+          <div class="row">
+  <div class="page-content col-md-9">
+    <article class="hentry" role="article">
+      
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-01-28T19:01:30+09:00" pubdate data-updated="true">2014-01-28</time>
+        
+      </p>
+    
+    
+    <h1 class="entry-title">
+        本当はBAでも使えるDFD
+        
+    </h1>
+    
+  </header>
+
+
+<div class="entry-content clearfix"><p>IIBA日本支部、BABOK-WG主催のイベントのメモ。
+DFDについての発表という珍しいテーマのイベントだった。</p>
+
+<!--more-->
+
+
+<h3>発表者</h3>
+
+<ul>
+<li>齋藤宏海 氏 / 元IIBA理事（創設メンバー）
+  現在は 日立ソリューションズ 技術開発本部 超上流プロセスエンジニアリングセンタ とのこと。</li>
+</ul>
+
+
+<h3>DFDの概略</h3>
+
+<p>See <a href="http://en.wikipedia.org/wiki/Data_flow_diagram">Wikipedia</a>図もwikipediaからの引用</p>
+
+<p><img src="http://upload.wikimedia.org/wikipedia/commons/c/c8/DataFlowDiagram_Example.png" alt="DFDの例" /></p>
+
+<h3>DFDは何を表す図なのか</h3>
+
+<p>海外の定義では状態遷移。これは齋藤氏も違和感があるとおっしゃっていたが、私も同感。
+ただ、状態遷移図にもアクションを状態とともに書く方法もあることから、システム全体のアクション（=機能）を
+記載する図ということなら、状態遷移とみても良いかもしれない。</p>
+
+<p>齋藤氏はDFDはシステムの境界を明確にすることが重要な役割だと考えているとのことだった。</p>
+
+<h3>データフロー図のメリット</h3>
+
+<ol>
+<li>全体が見渡せる</li>
+<li>設計の見通しが良くなる
+  データをどのように加工してどこに渡すかを把握できる。</li>
+<li>全体の整合性が確保できる</li>
+</ol>
+
+
+<h3>DFDの背景にある基礎概念</h3>
+
+<ul>
+<li>プロセス = Information + Function</li>
+</ul>
+
+
+<p>昔、プログラム = アルゴリズム + データ構造といっていたが、それを抽象化したものが上記だろう。</p>
+
+<h3>分析の（悪い）例</h3>
+
+<p>あるスーパーの販売プロセスを分析したところ、次のようになった。</p>
+
+<ul>
+<li>生鮮品販売</li>
+<li>日配品販売</li>
+<li>加工食品販売</li>
+<li>日用雑貨品販売</li>
+<li>衣料品販売</li>
+<li>文具類販売</li>
+</ul>
+
+
+<p>これはプロセスの分類であって、分析ではない。（プロセスが見えない）。</p>
+
+<p>ビジネスユーザーから業務をヒアリングすると、どうしても実際の業務（職場や、配置といった物理的な状況）に
+沿った説明になり、それに合わせてシステムを構築しても良くはならない。システム化に必要な抽象化が、
+プロフェッショナルなBAの役割。</p>
+
+<p>上記の例ももちろんいろいろな分析の仕方があるが、プロセスを列挙するように心がけるべき。</p>
+
+<h3>機能構成図 (DMM)</h3>
+
+<p>DMMってなんだ、と思ったら、Diamond Mandala Matrixの略。3x3のマトリクスを階層的に構成して、機能を分解していくもの。
+なんでDiamondなのかちょっと由来は見つからなかったが、金剛界曼荼羅(Diamond Realm Mandara)が元かな？</p>
+
+<p><a href="http://www.ogis-ri.co.jp/rad/webmaga/rwm20110705.html">こちら</a> に使い方の例をみることができる。</p>
+
+<h3>記載上のTips</h3>
+
+<p>このあたり、メモが不正確。考えながらメモをとっていた</p>
+
+<ul>
+<li>システム境界内のユーザーは、データストアとして考える</li>
+<li>データの格納や蓄積ではなく、イベントの滞留を示すものと考える</li>
+<li>コンピューターのマスタファイルは、データストアとして記述しない方が良い。
+マスタをデータストアとして記述すると、ほぼ全てのプロセスと関連することになってしまう。</li>
+</ul>
+
+
+<p>考えていたのは、確かにマスタファイルは、外部エンティティとしてモデル化しても差し支えないものと考えることもできる。
+（管理業務などでは、マスタファイルの更新が発生するが、これは業務フローの中では例外的な処理に該当するし、
+作業できる人も限られることが多いため）実際の業務でいくつか障害になるので、書いてみて考えるのが良さそうだ。</p>
+
+<h3>フリーディスカッション</h3>
+
+<p>ビジネスサイドとソリューション開発サイドのコミュニケーションを効率的に行うためには、
+業務プロセスや業務要件はどのようにモデル化し、文書化するのが良いか。</p>
+
+<p>ドキュメントの例として下記が提示されて、このドキュメントが良いのか、他にどんな選択肢があるのかといった
+ことを議論した。</p>
+
+<ul>
+<li>ユースケース図</li>
+<li>業務機能階層図 (DMM)</li>
+<li>データフロー図 (DFD)</li>
+<li>業務流れ図(WFA)</li>
+<li>ユースケースシナリオ</li>
+<li>業務ルール一覧表</li>
+<li>概念データモデル(ER図)</li>
+</ul>
+
+
+<p>私のいたテーブルでは、次のような意見が出た</p>
+
+<ul>
+<li>そもそもユーザーにこれらの図は分かるのか？ 分からないなら書いても意味がないのでは</li>
+<li>ユーザー観点で困るのは、ベンダーによって上記の図でもバリエーションがあること。後から統一するのはかなりのコストがかかる。
+  私は、システムの動きと比較して検証が容易なドキュメントは価値があるが、それ以外は価値がない（一時的なドキュメント）
+  なのでは、という意見を述べた。ユースケースはそういう意味では、微妙な図である。</li>
+<li>ビジネスユーザーにとって意味があるのは機能と業務の流れだが、それと開発側が必要とする Input, Output, Processの間に
+  断絶がある。Input / Outputは目に見えるので合意しやすいが、Processは目に見えないので表現にバリエーションが出てしまう。</li>
+<li>ユースケースを補足する資料として、画面遷移図がある</li>
+</ul>
+
+
+<p>ユースケースはいらないんじゃないかという意見をいったところ、</p>
+
+<ul>
+<li>海外では機能分析の成果としてユースケースはほぼ必須</li>
+<li>ユースケースのメリットは、正常パス、例外パス、異常パスの記述が必須なところ。日本ではこの点が理解されていないのでは</li>
+</ul>
+
+
+<p>という意見が出た。なるほど。</p>
+
+<p>個人的には分かりにくいProcessの部分をクリアにするための分析がロバストネス分析だと思っているが、
+これは主にUIをベースとしたプロセス図であり、データの流れを書くことに主体が置かれていない。</p>
+
+<h3>疑問点</h3>
+
+<ul>
+<li>そもそもBAがデータ分析を行うべき？できる？</li>
+<li>DFDの正しさは誰が検証すべき? 顧客か、それとも成果物の整合性で見るべき？</li>
+</ul>
+
+
+<h3>refs</h3>
+
+<ul>
+<li>IIBAのTIPS集がある</li>
+<li><a href="http://www.slideshare.net/koihayashi/babok-wg-20140129-30552962">BABOK-WGについて</a></li>
+<li><a href="http://en.wikipedia.org/wiki/System_context_diagram">Context Diagram</a></li>
+<li><a href="http://www.youtube.com/watch?v=zoXLU86ohmw">http://www.youtube.com/watch?v=zoXLU86ohmw</a></li>
+<li><a href="http://www.slideshare.net/Cazoomi/data-flow-diagrams-for-dummies">http://www.slideshare.net/Cazoomi/data-flow-diagrams-for-dummies</a></li>
+<li><a href="http://www.meti.go.jp/policy/it_policy/itasociate/it.associate.htm">EA策定ガイドライン</a></li>
+<li><a href="http://www.ipa.go.jp/sec/softwareengineering/tool/ep/ep1.html">超上流から攻めるITの事例集</a></li>
+</ul>
+
+</div>
+
+
+      <footer>
+        <p class="meta text-muted">
+          
+  
+
+<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard">Posted by <span class="fn">bohnen</span></span>
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-01-28T19:01:30+09:00" pubdate data-updated="true">2014-01-28</time>
+          
+
+<span class="glyphicon glyphicon-tags"></span>&nbsp;
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/ba/'>BA</a>, <a class='category' href='/blog/categories/dfd/'>DFD</a>
+  
+</span>
+
+
+        </p>
+        
+          <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://bohnen.github.io/blog/2014/01/28/babok-dfd/" data-via="bohnen" data-counturl="http://bohnen.github.io/blog/2014/01/28/babok-dfd/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+        
+        
+          <ul class="meta text-muted pager">
+            
+            <li class="previous"><a href="/blog/2014/01/26/git-diff/" title="Previous Post: git diffによるファイル差分の取得">&laquo; git diffによるファイル差分の取得</a></li>
+            
+            
+          </ul>
+        
+      </footer>
+    </article>
+    
+      <section>
+        <h1>Comments</h1>
+        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+      </section>
+    
+  </div>
+
+  
+  <aside class="sidebar col-md-3">
+    
+      <section class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Recent Posts</h3>
+  </div>
+  
+  <div id="recent_posts" class="list-group">
+    
+    <a class="list-group-item active" href="/blog/2014/01/28/babok-dfd/">本当はBAでも使えるDFD</a>
+    
+    <a class="list-group-item " href="/blog/2014/01/26/git-diff/">Git Diffによるファイル差分の取得</a>
+    
+    <a class="list-group-item " href="/blog/2014/01/25/ruby-stat/">ファイルの作成日</a>
+    
+    <a class="list-group-item " href="/blog/2014/01/20/devdocument/">開発ドキュメント(技術仕様)</a>
+    
+    <a class="list-group-item " href="/blog/2014/01/19/devdocument/">開発ドキュメント(機能仕様)</a>
+    
+  </div>
+</section>
+
+
+<section class='panel panel-default'>
+  <div class='panel-heading'>
+    <h3 class='panel-title'>Categories</h3>
+  </div>
+  <div class='list-group'>
+    <a class='list-group-item' href='/blog/categories/ba/'>BA (1)</a><a class='list-group-item' href='/blog/categories/book/'>Book (2)</a><a class='list-group-item' href='/blog/categories/dfd/'>DFD (1)</a><a class='list-group-item' href='/blog/categories/document/'>Document (2)</a><a class='list-group-item' href='/blog/categories/git/'>Git (1)</a><a class='list-group-item' href='/blog/categories/octopress/'>Octopress (2)</a><a class='list-group-item' href='/blog/categories/pm/'>PM (3)</a><a class='list-group-item' href='/blog/categories/rsec/'>Rsec (1)</a><a class='list-group-item' href='/blog/categories/ruby/'>Ruby (5)</a><a class='list-group-item' href='/blog/categories/scrum/'>Scrum (3)</a><a class='list-group-item' href='/blog/categories/sgt2014/'>SGT2014 (3)</a>
+  </div>
+</section>
+<section>
+  <h1>About Me</h1>
+  <hr>
+  bohnen (<a href="http://twitter.com/bohnen">@bohnen</a>)
+  <p>プロジェクトマネージャー。最近プログラミング再開しました。</p>
+</section>
+
+    
+  </aside>
+  
+</div>
+
+        </div>
+      </div>
+    </div>
+    <footer role="contentinfo"><div class="container">
+    <p class="text-muted credits">
+  Copyright &copy; 2014 - bohnen<br>
+  <small>
+      <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>,
+      <span class="credit">customized with <a href="https://github.com/kAworu/octostrap3">octostrap3</a></span>.
+  </small>
+</p>
+
+</div>
+</footer>
+    <script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/modernizr-2.0.js"></script>
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'bohnen';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://bohnen.github.io/blog/2014/01/28/babok-dfd/';
+        var disqus_url = 'http://bohnen.github.io/blog/2014/01/28/babok-dfd/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+  </body>
+</html>
