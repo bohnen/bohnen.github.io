@@ -4,7 +4,7 @@
   <title><![CDATA[A Project Manager's note]]></title>
   <link href="http://bohnen.github.io/atom.xml" rel="self"/>
   <link href="http://bohnen.github.io/"/>
-  <updated>2014-01-29T13:46:14+09:00</updated>
+  <updated>2014-02-08T23:20:53+09:00</updated>
   <id>http://bohnen.github.io/</id>
   <author>
     <name><![CDATA[bohnen]]></name>
@@ -12,6 +12,94 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[OSXでeTax]]></title>
+    <link href="http://bohnen.github.io/blog/2014/02/08/etax/"/>
+    <updated>2014-02-08T22:18:54+09:00</updated>
+    <id>http://bohnen.github.io/blog/2014/02/08/etax</id>
+    <content type="html"><![CDATA[<p>OSX(Mavericks) でeTaxを使い確定申告を行った時のメモ。ちょっと工夫が必要だった。
+（なお、本手順はeTaxが推奨している方法でもなんでもない（OSX 10.9はサポートされていない）ので、
+適用は自己責任で）</p>
+
+<!--more-->
+
+
+<h2>ハード</h2>
+
+<p>住民基本台帳カードリーダーには、 Gemaltoの USB-TR を利用した。このリーダーは、元々去年まで
+WindowsでeTaxをするのに使っていたものだが、OSXにも対応していて、特に何もインストールをしなくても認識する。</p>
+
+<h2>下準備</h2>
+
+<p>まずはJREをインストールする必要がある。それ以外にも、住民基本台帳カードの準備やeTaxの利用申請が必要だけど、ここでは割愛。</p>
+
+<ul>
+<li><a href="http://www.java.com/ja/download/index.jsp">Java Runtimeのインストール</a></li>
+</ul>
+
+
+<h2>JPKIクライアントソフトのインストール</h2>
+
+<ul>
+<li><a href="http://www.jpki.go.jp/download/">JPKIクライアントソフトのインストール</a></li>
+</ul>
+
+
+<p>上記ページにある手順通りにやればJPKIクライアントソフトがインストールできる。</p>
+
+<p><em>アプリケーション/ユーティリティ/公的個人認証サービス/</em> にツールがインストールされている。特にプロキシ等必要ない環境なので、</p>
+
+<ol>
+<li>Java実行環境への登録</li>
+<li>JPKI利用者ソフト</li>
+</ol>
+
+
+<p>の順に実行すれば、JPKI利用者ソフトが起動できる。ただ、この段階で「動作確認」を行っても、JPKI.tokendが起動しない。</p>
+
+<p>（エラーについては、 <a href="http://www.jpki.go.jp/download/howto_mac/confirm_p02.html">http://www.jpki.go.jp/download/howto_mac/confirm_p02.html</a> を参照）</p>
+
+<p>JPKI.tokendを立ち上げるためには、追加でインストールをしないといけなかった（Appleのフォーラムには
+前のバージョンのOSXからコピーするような情報もあったが、前のバージョンのOSXが無かったので・・・）</p>
+
+<h2>SmartCard Servicesのインストール</h2>
+
+<p>MacOS forgeから、Smartcard Servicesをインストールする。</p>
+
+<p><a href="http://smartcardservices.macosforge.org/trac/wiki/installers">http://smartcardservices.macosforge.org/trac/wiki/installers</a> から、OS X Mavericks 10.9 用のバイナリを取得し、インストールする。</p>
+
+<p>インストール後カードを挿すと、カードの内容（証明書等）がキーチェーンに登録される。そのため、様々なアプリケーションが
+キーチェーンのキーを使おうとしてパスワードを要求するダイアログを出してくる。</p>
+
+<p>ここで入力するパスワードは、住民基本台帳カードに設定したprivate key用のパスワードなので注意。
+いくつもパスワードを設定しないといけないこの仕様はどうにかならないかなぁ。</p>
+
+<p>ここまでで、カードの読み取りはできるはず。</p>
+
+<h2>ルート証明書のインストール</h2>
+
+<p><a href="http://www.nta.go.jp/tetsuzuki/shinkoku/shotoku/tokushu/jyunbi.htm#junbi2">http://www.nta.go.jp/tetsuzuki/shinkoku/shotoku/tokushu/jyunbi.htm#junbi2</a></p>
+
+<p>キーチェーンに、「システム」が無かったので、「システムルート」にいれた。特に問題になっていないみたいだ。
+ルート証明書が設定されたら、JPKI利用者ソフトを立ち上げ、自分の証明書を表示。右下にある、<strong>「有効性確認」</strong> を実施する。
+有効と表示されれば、問題ないはずだ。</p>
+
+<h2>トラブルシューティング</h2>
+
+<p>トラブルシューティングを行うときは、JPKI利用者ソフトの <strong>「動作確認」</strong> を実行するのが基本。ここでOKであれば、
+基本eTaxでも動く。</p>
+
+<h3>カードを認識しないとき</h3>
+
+<p>リーダーを差し込むときにカードを挿さない。リーダーを差し込むとLEDが点滅するので、そこでカードを差し込むとLEDが点灯したままになる。この状態じゃないとカードは認識されない。</p>
+
+<h3>eTax(Web版)が使えない</h3>
+
+<p>これは何回かトライしたけどダメで、あきらめた。起動まではいくんだけど、対応環境は×、Javaの起動もなぜか×になってしまい、先に進まない。
+通常のeTax 「確定申告を作成する」ボタンから作った。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[本当はBAでも使えるDFD]]></title>
